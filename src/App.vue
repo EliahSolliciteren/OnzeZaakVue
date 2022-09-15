@@ -1,9 +1,10 @@
 <template>
 
 <div id="geheel">
-<div id="aanmelden"></div>
+<div id="aanmelden"> <aanmelden/></div>
 <div id="rechtsboven"> </div>
-<div id="routeview"><bestelling/>???</div>
+<div id="routeview">
+<router-view ></router-view> </div>
 <div id="navigatiebalk"></div>
 <div id="footer"></div>
 <div id="linkerbalk"><categorie/></div>
@@ -16,15 +17,16 @@
   <script>
     import bestelling from '/src/components/bestellingen1/bestelling.vue'
 import categorie from '/src/components/bestellingen1/categorie.vue'
+import aanmelden from '/src/components/klant/aanmelden'
 export default {
   name: 'App',
   components: {
-    bestelling, categorie
+    bestelling, categorie, aanmelden
 }
 }
 </script>
 
-<style>
+<style scoped>
 #geheel{
 
 display: grid;
