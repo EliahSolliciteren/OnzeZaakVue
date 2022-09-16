@@ -8,25 +8,29 @@
 <button v-if="gerecht.aantal>0" @click="verwijderen(index)">-</button>
 </li>
 </ul>
-<button @click="selectie('drank')">drank</button>
-<button @click="selectie('alles')">gehele kaart</button>
+
+<input v-model="datum" type="datetime-local"/> <br/>
+
 <button @click="herbeginnen">Herbegin selectie</button>
+<button @click="plaatsen">Bestelling plaatsen</button>
 </div> 
 
-{{totaal}}  {{categorie}}
+
+
+
+
 </template>
 
 <script>
 //import { createDOMCompilerError } from '@vue/compiler-dom';
 
+//import router from '/src/router.js'
+
 
 export default {
   data(){
 return{
-//menukaart: this.$store.state.Bestelling.menukaart,
-    //Zou dit niet bij computed moeten komen??
-//menukaart:  this.$store.state.Bestelling.menukaart,
-
+datum:''
 }
 
   },
@@ -121,6 +125,23 @@ verwijderen(index){
   this.$store.dispatch('Bestelling/verwijderen', gerecht)
 
 },
+plaatsen(){
+  console.log(this.datum)
+this.$store.dispatch('Bestelling/plaatsen', {totaal: this.totaal, datum: this.datum})
+this.$router.push('/winkelkar')
+
+
+
+
+
+
+}
+
+
+
+
+
+}
 
 
 
@@ -128,11 +149,15 @@ verwijderen(index){
 }
   
  
-}
+
 </script>
 
 <style scoped>
+*{
 
+  font-size:1.3rem;
+
+}
 
 
 

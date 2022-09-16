@@ -2,12 +2,12 @@ import axios from 'axios';
 
 
 const state={
-gebruiker: null,
-token:''
+klant: null,
+token:'',
+
+
+
 }
-
-
-
 
 
 
@@ -58,18 +58,29 @@ password:payload.wachtwoord
         
         
         
-        })}}
+        })},
+      afmelden({commit}){
+
+commit('AFMELDEN')
+
+
+
+
+
+      }
+      
+      }
 
        const mutations={
 
             SET_TOKEN: (state, token) => {
                 state.token = token;
               },
-              SET_GEBRUIKER: (state, gebruiker) => {
-                state.gebruiker = gebruiker;
+              SET_GEBRUIKER: (state, klant) => {
+                state.klant = klant;
               },
-              RESET: state => {
-                state.gebruiker={},
+              AFMELDEN: state => {
+                state.klant=null,
                 state.token=''
               }
             }
@@ -78,8 +89,8 @@ password:payload.wachtwoord
 
     const getters={
     
-            token: state => state.token,
-            gebruiker: state=>state.gebruiker
+            token: state => {return state.token},
+            klant: state=>{return state.klant}
             }
     
     

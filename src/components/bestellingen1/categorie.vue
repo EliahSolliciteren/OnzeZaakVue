@@ -7,7 +7,7 @@
 <li @click="selectie('vlees')" :class="(cat=='vlees'?'geselecteerd':'item')"> vlees </li>
 <li @click="selectie('nagerecht')" :class="(cat=='nagerecht')?'geselecteerd':'item'"> nagerecht </li>
 <li @click="selectie('alles')" :class="(cat=='alles')?'geselecteerd':'item'"> alles </li>
-
+<li><router-link :class="(cat=='overzicht')?'geselecteerd link':'link'" to="/overzicht">Overzicht bestelling</router-link> </li>
 
 </ul>
 
@@ -60,10 +60,22 @@ this.$store.dispatch('Bestelling/andereCategorie', categorie)
 
 </script>
 
-<style>
+<style scoped>
 .geselecteerd{
 background-color: rgb(193, 9, 165);
 
+
+}
+.link{
+
+text-decoration: none;
+color: black;
+
+}
+.link:hover .link:active{
+
+color: black;
+background-color:  rgb(193, 9, 165);
 
 }
 

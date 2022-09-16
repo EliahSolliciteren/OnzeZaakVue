@@ -6,8 +6,10 @@ const state={
 
 menukaart:[],
 bestelling:[],
-categorie:'alles'
-
+categorie:'alles',
+totaal:'',
+datum:'',
+adres:{gemeente:'', straat:'',huisnummer:''}
 
 }
 
@@ -49,12 +51,74 @@ commit('ANDERECATEGORIE', gerecht)
 
 
 
+},
+
+gemeente({commit},gemeente){
+    commit('GEMEENTE', gemeente)
+//console.log(gemeente +'?')
+
+},
+straat({commit},straat){
+    commit('STRAAT', straat)
+
+
+},
+
+huisnummer({commit},huisnummer){
+    commit('HUISNUMMER', huisnummer)
+console.log(huisnummer)
+
+},
+
+
+plaatsen({commit}, tijdEnTotaal){
+console.log(tijdEnTotaal)
+commit('TIJD', tijdEnTotaal.datum)
+commit('TOTAAL', tijdEnTotaal.totaal)
+
+
+
+},
+bevestigen({commit,getters,rootGetters}, adresEnDatum){
+    commit('TIJD', adresEnDatum.datum)
+  
+const klant=rootGetters['Klant/klant']||''
+console.log('totaal:'+getters.totaal)
+console.log(getters.adres)
+
+//console.log(gemeente)
+    axios({
+        url: 'http://localhost:3001/bestelling/create',
+        method:'post',
+data:{
+bestelling:getters.bestelling,
+datum:getters.datum,
+totaal: getters.totaal,
+klant: klant,
+adres:getters.adres || {gemeente:klant.gemeente, straat:klant.straat,huisnummer:klant.huisnummer}
+
+//adres: getters.adres//rootGetters['Klant/klant']
+}
+}).then(()=>{commit('GEMEENTE',''),commit('STRAAT',''), commit('HUISNUMMER','')})
+
+
+
+
+    }
+
+
+
+
+
+
 }
 
 
 
 
-}
+
+
+
 
 const mutations={
 MENUKAART(state,payload){
@@ -89,15 +153,43 @@ state.bestelling[index].aantal--
 
 },
 
+
 ANDERECATEGORIE(state,payload){
 state.categorie=payload
 
 
 
-}
+},
 
-//console.log(state.bestelling[length-1].aantal)
-//state.bestellingen=[]
+TIJD(state, tijd){
+state.datum=tijd;
+console.log(state.datum)
+},
+ADRES(state, adres){
+
+state.adres=adres
+
+
+},
+
+TOTAAL(state, totaal ){
+state.totaal=totaal
+
+},
+
+GEMEENTE(state, gemeente ){
+    state.adres.gemeente=gemeente
+    console.log('gemeente:'+gemeente)
+    },
+    STRAAT(state, straat ){
+        state.adres.straat=straat
+        
+        },   
+  HUISNUMMER(state, huisnummer ){
+state.adres.huisnummer=huisnummer
+            
+ }, 
+
 }
 
 
@@ -106,12 +198,15 @@ state.categorie=payload
 
 const getters={
     
-        menukaart: state => state.menukaart,
-        bestelling: state=>state.bestelling
-        }
+        menukaart: (state) => {return state.menukaart},
+        bestelling: (state)=> { return state.bestelling},
+        datum:(state) =>{return state.datum} ,  
+        totaal:(state) =>{return state.totaal} ,    
+        adres :(state) =>{return state.adres}  
+        
 
 
-
+    }
 
  const Bestelling = {
 namespaced:true,

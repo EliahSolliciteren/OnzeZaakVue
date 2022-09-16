@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-//import {ValidationProvider, extend, defineRule} from 'vee-validate'
+import * as VeeValidate from 'vee-validate'
 //import {required} from 'vee-validate/rules'
 import App from './App.vue'
 import store from '/src/store/store.js'

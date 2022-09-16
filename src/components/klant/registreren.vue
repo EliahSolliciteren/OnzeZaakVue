@@ -2,11 +2,11 @@
     <form  @submit="nieuweKlant" id="formulier">
     
     <label for="voornaam">voornaam:</label>
-        <input id='voornaam' name="voornaam" v-model="formulier.voornaam"/> 
+        <input id='voornaam' name="voornaam" v-model="formulier.voornaam" /> 
         <span ></span>
         <br/>
     <label for="familienaam">familienaam:</label>
-        <input v-model="formulier.familienaam"/>
+        <input v-model="formulier.familienaam" />
         <br/>
         <label for="email">email:</label>
     <input  v-model="formulier.email"/>
@@ -52,7 +52,7 @@
     e.preventDefault();
     console.log(e)
     this.$store.dispatch('Klant/klantAanmaken', this.formulier)
-    
+    this.$router.push('/')
     
     }
     

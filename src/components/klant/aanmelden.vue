@@ -1,19 +1,21 @@
 <template>
-    <div>
-        <div v-if="(this.$store.state.Klant.gebruiker)">
-    Welkom terug op onze site {{this.$store.state.Klant.gebruiker.voornaam}}!</div>
-    <div v-else>
+    
+        <div v-if="(this.$store.state.Klant.klant)">
+   <div>Welkom terug op onze site {{this.$store.state.Klant.klant.voornaam}}!</div>
+<div> <button @click="afmelden"> Afmelden</button> </div>
+</div> 
+   <div v-else>
     <p>Aanmelden</p>
     <label for="email">email:</label>
-    <input id="email" v-model="email"/>
+    <input id="email" v-model.trim="email"/>
     <br/>
     <label for="wachtwoord"> wachtwoord:</label>
-    <input id="wachtwoord" v-model="wachtwoord"/>
+    <input id="wachtwoord" v-model.trim="wachtwoord"/>
     <br/>
     <button @click='aanmelden' type="submit">aanmelden</button>
     
     </div>
-</div>
+
     </template>
     <script>
    
@@ -27,6 +29,12 @@ methods:{
    aanmelden()
    {
  this.$store.dispatch('Klant/aanmelden', {email:this.email,wachtwoord: this.wachtwoord })
+},
+afmelden(){
+
+    this.$store.dispatch('Klant/afmelden')
+
+
 }
 }
 
@@ -35,3 +43,8 @@ methods:{
 
 
     </script>
+
+    <style>
+
+
+    </style>

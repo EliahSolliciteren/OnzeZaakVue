@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import registreren from '/src/components/klant/registreren.vue'
 import bestellen from '/src/components/bestellingen1/bestelling.vue'
+import winkelkar from '/src/components/bestellingen2/winkelkar.vue'
 
 
 const routes=[
@@ -24,8 +25,25 @@ const routes=[
     component: registreren,
     props:true
     
-    }
-    ]
+    },
+    {
+      path: '/overzicht',
+      name:'winkelkarTijdensBestelling',
+      component: winkelkar,
+      props:true
+
+
+
+    },{
+  path: '/winkelkar',
+  name:'winkelkarNaBestelling',
+  component:winkelkar,
+  props:true
+
+
+  } 
+
+]
     
     const router = createRouter({
         history: createWebHistory(),
