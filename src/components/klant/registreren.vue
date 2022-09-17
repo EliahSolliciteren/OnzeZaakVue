@@ -1,10 +1,15 @@
 <template>
-    <form  @submit="nieuweKlant" id="formulier">
-    
-    <label for="voornaam">voornaam:</label>
-        <input id='voornaam' name="voornaam" v-model="formulier.voornaam" /> 
-        <span ></span>
+ 
+    <Form  @submit="nieuweKlant" id="formulier">
+        <label for="voornaam"></label>
+        
+        <input
+   
+       type="text" id='voornaam' name="voornaam" v-model="formulier.voornaam" 
+        />
+        
         <br/>
+      
     <label for="familienaam">familienaam:</label>
         <input v-model="formulier.familienaam" />
         <br/>
@@ -27,7 +32,8 @@
     <input v-model="formulier.huisnummer"/>
     <br/>
     <button type="submit" > Account Aanmaken</button>
-    </form>
+</form>    
+
     
     </template>
     <script>

@@ -121,7 +121,7 @@ this.$store.dispatch('Bestelling/herbeginnen')
 verwijderen(index){
 
   let gerecht=this.menukaart[index]
-
+console.log(gerecht)
   this.$store.dispatch('Bestelling/verwijderen', gerecht)
 
 },

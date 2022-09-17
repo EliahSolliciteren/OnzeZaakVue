@@ -1,4 +1,4 @@
-import createPersistedState from "vuex-persistedstate";
+//import createPersistedState from "vuex-persistedstate";
 
 import axios from "axios";
 
@@ -14,12 +14,15 @@ adres:{gemeente:'', straat:'',huisnummer:''}
 }
 
 const actions={
-    menukaart({commit}){
+    menukaart({commit,getters}){
+    console.log(getters.menukaart)
+        if (JSON.parse(JSON.stringify(getters.menukaart)).length==0){
+    
     axios.get('http://localhost:3001/gerecht/allegerechten')
 .then(response=>{
 commit('MENUKAART', response.data)}
 //console.log(response)
-)
+        )}
 
 
     },
@@ -55,7 +58,6 @@ commit('ANDERECATEGORIE', gerecht)
 
 gemeente({commit},gemeente){
     commit('GEMEENTE', gemeente)
-//console.log(gemeente +'?')
 
 },
 straat({commit},straat){
@@ -83,9 +85,8 @@ bevestigen({commit,getters,rootGetters}, adresEnDatum){
     commit('TIJD', adresEnDatum.datum)
   
 const klant=rootGetters['Klant/klant']||''
-console.log('totaal:'+getters.totaal)
-console.log(getters.adres)
-
+console.log('adres: '+getters.adres.straat)
+console.log(klant.straat)
 //console.log(gemeente)
     axios({
         url: 'http://localhost:3001/bestelling/create',
@@ -95,7 +96,7 @@ bestelling:getters.bestelling,
 datum:getters.datum,
 totaal: getters.totaal,
 klant: klant,
-adres:getters.adres || {gemeente:klant.gemeente, straat:klant.straat,huisnummer:klant.huisnummer}
+adres:{gemeente:getters.adres.gemeente||klant.gemeente, straat:getters.adres.straat||klant.straat, huisnummer:getters.adres.huisnummer||klant.huisnummer}
 
 //adres: getters.adres//rootGetters['Klant/klant']
 }
@@ -133,15 +134,15 @@ else{
 
 state.bestelling[indexBestelling].aantal++
 console.log(indexBestelling)
-}
-const indexMenukaart=state.menukaart.findIndex(e=>e.naam==payload.naam)
-state.menukaart[indexMenukaart].aantal++
 
+//const indexMenukaart=state.menukaart.findIndex(e=>e.naam==payload.naam)
+//state.menukaart[indexMenukaart].aantal++
+}
 }, 
 
 HERBEGINNEN(state){
     state.bestelling=[]
-
+console.log(state.bestelling)
 },
 VERWIJDEREN(state, payload){
 
@@ -214,7 +215,7 @@ state,
 actions,
 mutations,
 getters,
-plugins: [createPersistedState()]
+
 
 
 };

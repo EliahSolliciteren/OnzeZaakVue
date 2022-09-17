@@ -32,9 +32,9 @@
 export default{
 data(){
 return{
-gemeente2:'',
-straat2:'',
-huisnummer2:''
+//gemeente2:'',
+//straat2:'',
+//huisnummer2:''
 
 
 

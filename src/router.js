@@ -2,21 +2,33 @@ import { createRouter, createWebHistory } from 'vue-router'
 import registreren from '/src/components/klant/registreren.vue'
 import bestellen from '/src/components/bestellingen1/bestelling.vue'
 import winkelkar from '/src/components/bestellingen2/winkelkar.vue'
+import smakelijk from '/src/components/bestellingen2/smakelijk.vue'
+import categorie from '/src/components/bestellingen1/categorie.vue'
+import welkom from '/src/components/welkom/welkom.vue'
+//import banner1 from '/src/components/welkom/bannerRegistreren.vue'
+//import banner2 from '/src/components/welkom/bannerVers.vue'
+//import banner3 from '/src/components/welkom/bannerPromotie.vue'
+import bestellingg from '/src/components/bestellingGroot/menuGroot.vue'
 
 
 const routes=[
     {
     path: '/',
     name: 'Welkom',
-    component: bestellen,
+    component: welkom,
     props: true
     
     },
     {
     path: '/bestellen',
     name:'bestellen',
-    component:bestellen,
-    props:true
+    components:{
+      
+      default:bestellen,
+      links: categorie
+    
+    },
+      props:true
     
     },
     {
@@ -41,7 +53,29 @@ const routes=[
   props:true
 
 
-  } 
+  } ,
+
+
+
+
+  {
+path:'/smakelijk',
+name:'smakelijk',
+component: smakelijk,
+props:true
+
+
+  },
+{
+  path:'/memory',
+  name:'bestellingGrootScherm',
+  component: bestellingg,
+  props:true
+
+
+
+}
+
 
 ]
     

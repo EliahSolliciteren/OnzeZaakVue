@@ -11,25 +11,35 @@
 </li>
 
 </ul>
-
+<span v-if="Validatiefouten.gerechten">{{Validatiefouten.gerechten}}</span>
+</div>
 <adres/>
+<span v-if="Validatiefouten.adres">{{Validatiefouten.adres}}</span>
 
 
 <div>bestelling wordt geleverd op: {{datum2}}</div>
-</div>
+
+
+<span v-if="Validatiefouten.datum">{{Validatiefouten.datum}}</span>
+<br>
 <button @click="bevestigen">Bevestig de bestelling</button>
 </div>
 </template>
 
 <script>
-    import adres from './adres.vue'
+    
+
+import adres from './adres.vue'
     export default{
 data(){
 return{
-
+   // dag2:'',
+   // maand2:'',
+    //jaar2:'',
+datum2:false,
 bestelling: this.$store.state.Bestelling.bestelling,
-
-
+Validatiefouten:{datum:'',gerechten:'',adres:'' },
+validatiefout:false
 
 }
 },
@@ -42,19 +52,61 @@ let maand=datum2.substring(5,7)
 let uur = datum2.substring(11,17)
 console.log('dag:' + dag)
 console.log('maand:' + maand)
-console.log(uur)
+//this.dag2=dag
+//this.maand2=maand
+//this.uur2=uur
+if(uur&&maand&&uur){this.datum2=true}
 
 return dag +'/' + maand +' rond '+ uur 
 
 
 
-}},
+},
+
+
+},
 methods:{
 bevestigen() 
 {
-this.$emit('adresNaarStore')
+
+if (!this.datum2){
+this.Validatiefouten.datum='Gelieve de datum na te kijken'
+this.validatiefout=true
+
+}
+if (this.$store.getters["Bestelling/totaal"]==0){
+    console.log(this.$store.getters["Bestelling/totaal"])
+    this.Validatiefouten.gerechten='Je hebt geen gerechten geselecteerd'
+this.validatiefout=true; console.log('gezocht:'+this.$store.getters["Bestelling/adres"].gemeente)
+}
+//console.log(this.Validatiefouten) 
+
+if(this.$store.getters["Klant/klant"]){
+if ((!this.$store.getters["Klant/klant"].gemeente && !this.$store.getters["Bestelling/adres"].gemeente)||(!this.$store.getters["Klant/klant"].straat && !this.$store.getters["Bestelling/adres"].straat)||(!this.$store.getters["Klant/klant"].huisnummer && !this.$store.getters["Bestelling/adres"].huisnummer)) {
+ 
+    this.Validatiefouten.adres='We kunnen geen bestelling leveren zonder een volledig adres'
+this.validatiefout=true
+console.log(this.Validatiefouten)
+}}else{
+    if ( !this.$store.getters["Bestelling/adres"].gemeente|| !this.$store.getters["Bestelling/adres"].straat||(!this.$store.getters["Bestelling/adres"].huisnummer)) {
+ 
+ this.Validatiefouten.adres='We kunnen geen bestelling leveren zonder een volledig adres'
+this.validatiefout=true
+console.log(this.Validatiefouten)
+
+
+
+
+}
+
+
+
+
+if (this.validatiefout==false){
+
 this.$store.dispatch('Bestelling/bevestigen', {datum:this.$store.state.Bestelling.datum, adres:{gemeente:this.gemeente,straat:this.straat,huisnummer:this.huisnummer}})
-//this.$router.push('/Smakelijk')
+this.$router.push('/smakelijk')
+}}
 
 
 

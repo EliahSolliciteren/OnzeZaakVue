@@ -1,7 +1,7 @@
 import { createStore } from 'vuex';
 import Bestelling from './moduleBestelling' 
 import Klant from './moduleKlant'
-import createPersistedState from "vuex-persistedstate";
+import persistedStateVuex from "persisted-state-vuex";
 
 export default createStore({
 
@@ -10,7 +10,7 @@ Bestelling,
 Klant
 },
     
-    plugins: [createPersistedState()]
+plugins: [persistedStateVuex.init],
     
     })
 
