@@ -1,14 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import registreren from '/src/components/klant/registreren.vue'
-import bestellen from '/src/components/bestellingen1/bestelling.vue'
+//import bestellen from '/src/components/bestellingen1/bestelling.vue'
 import winkelkar from '/src/components/bestellingen2/winkelkar.vue'
 import smakelijk from '/src/components/bestellingen2/smakelijk.vue'
-import categorie from '/src/components/test/categorie.vue'
+import categorie from '/src/components/bestellingen/categorie.vue'
 import welkom from '/src/components/welkom/welkom.vue'
 //import banner1 from '/src/components/welkom/bannerRegistreren.vue'
 //import banner2 from '/src/components/welkom/bannerVers.vue'
 //import banner3 from '/src/components/welkom/bannerPromotie.vue'
-import test from '/src/components/test/bestelling.vue'
+import bestellen from '/src/components/bestellingen/bestelling.vue'
 
 
 const routes=[
@@ -67,9 +67,9 @@ props:true
 
   },{
 
-  path:'/test',
-  name:'test',
-  components:{ default:test,
+  path:'/bestellen',
+  name:'bestellen',
+  components:{ default:bestellen,
     links:categorie},
   props:true
 

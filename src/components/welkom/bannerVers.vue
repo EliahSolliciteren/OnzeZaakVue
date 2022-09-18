@@ -25,16 +25,16 @@ return{
 </script>
 
 
-<style>
+<style scoped>
 
-#centreren{
+#centreren {
 
 font-size:1.4rem;
 display:flex;
 align-items: center;
 flex-direction: column;
-vertical-align: center
-}
+vertical-align: center;
+margin-top:3.5vh; }
 
 
 </style>

@@ -36,7 +36,9 @@ data(){
     display:flex;
     align-items: center;
     flex-direction: column;
-    vertical-align: center
+    vertical-align: center;
+    text-align: center;
+    margin-top: 4vh;
     }
     
     

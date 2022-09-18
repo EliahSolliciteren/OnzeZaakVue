@@ -2,7 +2,7 @@
 
 <div id="centreren">
 
-<div>Registreren biedt verschillende voordelen</div> 
+<div id="titel">Registreren biedt verschillende voordelen</div> 
 
 <ol>
 <li>gemakkelijk en sneller bestellen</li>
@@ -32,8 +32,13 @@ font-size:1.4rem;
 display:flex;
 align-items: center;
 flex-direction: column;
-vertical-align: center
-}
+vertical-align: middle;
 
+}
+#titel{
+
+margin-top:1.5vh
+
+}
 
 </style>

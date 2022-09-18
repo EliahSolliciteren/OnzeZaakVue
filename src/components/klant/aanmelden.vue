@@ -4,16 +4,19 @@
    <div>Welkom terug op onze site {{this.$store.state.Klant.klant.voornaam}}!</div>
 <div> <button @click="afmelden"> Afmelden</button> </div>
 </div> 
-   <div v-else>
-    <p>Aanmelden</p>
-    <label for="email">email:</label>
+   <div id="aanmelden" v-else>
+    <div id="email">
+    <label for="email">email:</label> <br>
     <input id="email" v-model.trim="email"/>
-    <br/>
-    <label for="wachtwoord"> wachtwoord:</label>
+    </div>
+    <br>
+    <div id="wachtwoord">
+    <label for="wachtwoord"> wachtwoord:</label> <br>
     <input id="wachtwoord" v-model.trim="wachtwoord"/>
+</div>
     <br/>
     <button @click='aanmelden' type="submit">aanmelden</button>
-    <span v-if="error">Dit lukte niet.</span>
+    <span v-if="error">Zijn de inloggegevens juist?.</span>
     </div>
 
     </template>
@@ -49,7 +52,23 @@ return this.$store.getters['Klant/aanmeldError']
 
     </script>
 
-    <style>
+    <style scoped>
+input{
+width: 60%;
+
+}
+*{
+
+    margin-left: 2%;
+    margin-top: 1%;
+    padding:0%
+}
+
+
+
+
+
+
 
 
     </style>

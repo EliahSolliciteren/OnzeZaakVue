@@ -1,7 +1,7 @@
 <template>
 <div id="overzicht">
     <div id="buitenste">
-<div id="lijn1"><div>gerecht</div> <div>eenheidsprijs</div> <div>aantal </div><div>totaal</div></div>
+<div id="lijn1"><div>gerecht</div> <div>aantal</div> <div>eenheisprijs </div><div>totaal</div></div>
 <ul id="opsomming"  v-for="gerecht in bestelling">
 <li id="gerecht" v-if="gerecht.aantal>0">
     <div>{{gerecht.naam}} </div>  
@@ -17,9 +17,8 @@
 <span v-if="Validatiefouten.adres">{{Validatiefouten.adres}}</span>
 
 
-<div>bestelling wordt geleverd op: {{datum2}}</div>
-
-
+<div v-if="datum2">bestelling wordt geleverd op: {{datum2}}</div>
+<input @input="this.datum2=true" v-else type="datetime-local"/>
 <span v-if="Validatiefouten.datum">{{Validatiefouten.datum}}</span>
 <br>
 <button @click="bevestigen">Bevestig de bestelling</button>
@@ -33,9 +32,7 @@ import adres from './adres.vue'
     export default{
 data(){
 return{
-   // dag2:'',
-   // maand2:'',
-    //jaar2:'',
+datum3:'',   
 datum2:false,
 bestelling: this.$store.state.Bestelling.bestelling,
 Validatiefouten:{datum:'',gerechten:'',adres:'' },
@@ -44,7 +41,7 @@ validatiefout:false
 }
 },
 computed:{
-
+    
 datum2(){
 const datum2=this.$store.state.Bestelling.datum
 let dag=datum2.substring(8,10)
@@ -55,10 +52,11 @@ console.log('maand:' + maand)
 //this.dag2=dag
 //this.maand2=maand
 //this.uur2=uur
-if(uur&&maand&&uur){this.datum2=true}
+if(uur&&maand&&uur){this.datum2=true
 
 return dag +'/' + maand +' rond '+ uur 
-
+}
+else return
 
 
 },
@@ -68,6 +66,8 @@ return dag +'/' + maand +' rond '+ uur
 methods:{
 bevestigen() 
 {
+   this.Validatiefouten={datum:'',gerechten:'',adres:'' }
+   this.validatiefout=false
 
 if (!this.datum2){
 this.Validatiefouten.datum='Gelieve de datum na te kijken'

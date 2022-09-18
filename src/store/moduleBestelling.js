@@ -1,6 +1,7 @@
 //import createPersistedState from "vuex-persistedstate";
 
 import axios from "axios";
+import store from "./store";
 
 const state={
 
@@ -20,7 +21,8 @@ const actions={
     
     axios.get('http://localhost:3001/gerecht/allegerechten')
 .then(response=>{
-commit('MENUKAART', response.data)}
+commit('MENUKAART', response.data)
+console.log('nieuwe kaart')}
 //console.log(response)
         )}
 
@@ -87,7 +89,7 @@ bevestigen({commit,getters,rootGetters}, adresEnDatum){
 const klant=rootGetters['Klant/klant']||''
 console.log('adres: '+getters.adres.straat)
 console.log(klant.straat)
-//console.log(gemeente)
+console.log(getters.bestelling)
     axios({
         url: 'http://localhost:3001/bestelling/create',
         method:'post',
@@ -100,7 +102,11 @@ adres:{gemeente:getters.adres.gemeente||klant.gemeente, straat:getters.adres.str
 
 //adres: getters.adres//rootGetters['Klant/klant']
 }
-}).then(()=>{commit('GEMEENTE',''),commit('STRAAT',''), commit('HUISNUMMER','')})
+}).then(()=>{commit('GEMEENTE',''),commit('STRAAT',''), commit('HUISNUMMER','')
+
+
+
+})
 
 
 
@@ -141,8 +147,9 @@ console.log(indexBestelling)
 }, 
 
 HERBEGINNEN(state){
-    state.bestelling=[]
-console.log(state.bestelling)
+    state.menukaart= []
+    state.gerechten=[]
+console.log('In orde?')
 },
 VERWIJDEREN(state, payload){
 
@@ -150,7 +157,8 @@ const index=state.bestelling.findIndex(e=>e.naam==payload.naam)
 console.log(index)
 console.log(state.bestelling)
 state.bestelling[index].aantal--
-
+if (state.bestelling[index].aantal==0)
+{state.bestelling.pop(state.bestelling[index])}
 
 },
 

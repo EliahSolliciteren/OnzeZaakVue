@@ -62,6 +62,35 @@ this.$store.dispatch('Bestelling/andereCategorie', categorie)
 </script>
 
 <style scoped>
+*{
+
+font-size: 1.4rem;
+
+}
+
+li{
+
+margin-bottom: 2vh;
+
+
+}
+
+li:hover{
+
+cursor: pointer;
+
+
+}
+
+ul{
+
+margin-top: 3vh;
+
+
+
+}
+
+
 .geselecteerd{
 background-color: rgb(193, 9, 165);
 

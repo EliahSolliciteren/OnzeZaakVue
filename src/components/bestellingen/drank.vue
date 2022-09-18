@@ -14,7 +14,7 @@
 </ul>
 </div>
 
-
+{{eenheid}}
 
 
 
@@ -40,11 +40,12 @@ return{
 
 computed:{
 classObject(){
-  return {hidden:this.cat!=='alles'&&this.cat!=='drank'}}
-}, //ternary operator was ook mogelijk geweest, maar eventuaal nog
+  return {hidden:this.cat!=='alles'&&this.cat!=='drank'}
+
+}},
+ //ternary operator was ook mogelijk geweest, maar eventuaal nog
 //een klasse voor als je bij this.cat=='drank' anders wilt reageren 
 
- 
   props:['menukaart', 'cat'],
 
   
@@ -54,7 +55,7 @@ keuze(index)
 {
 
 let gerecht=this.menukaart[index]
-//console.log()
+
 this.$store.dispatch('Bestelling/toevoegenAanBestelling', gerecht)
 
 
@@ -71,9 +72,13 @@ console.log(gerecht)
 
 
 
+
+
+  
+
+
+
 }
-
-
 
 
 

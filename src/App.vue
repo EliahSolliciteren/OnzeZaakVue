@@ -4,7 +4,7 @@
 <div id="aanmelden"> <aanmelden/></div>
 <div id="rechtsboven"> </div>
 <div id="routerview">
-<router-view ></router-view> </div>
+<keepAlive><router-view ></router-view></keepAlive> </div>
 <div id="navigatiebalk"></div>
 <div id="footer"><component :is="banner"></component></div>
 <div id="linkerbalk"> <router-view name="links"></router-view></div>
@@ -16,8 +16,8 @@
 
 
   <script>
-    import bestelling from '/src/components/bestellingen1/bestelling.vue'
-import categorie from '/src/components/bestellingen1/categorie.vue'
+    import bestelling from '/src/components/bestellingen/bestelling.vue'
+import categorie from '/src/components/bestellingen/categorie.vue'
 import aanmelden from '/src/components/klant/aanmelden'
 import banner1 from '/src/components/welkom/bannerRegistreren.vue'
 import banner2 from '/src/components/welkom/bannerVers'
@@ -131,7 +131,7 @@ grid-area: footer;
 background-color: rosybrown;
 min-height: 15vh;
 max-height: 15vh;
-
+/*align-content: center;*/
 
 }
 #navigatiebalk{
@@ -151,7 +151,7 @@ background-color: azure;
 
 grid-area: linkerbalk;
 background-color: green;
-
+min-width: 20vw;
 
 }
 #rechtsboven{

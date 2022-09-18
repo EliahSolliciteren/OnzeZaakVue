@@ -1,5 +1,5 @@
 <template>
-  <div is="geheel">
+  <div id="geheel">
 <drank :menukaart="drank" :cat="categorie"></drank>
 <voorgerecht :menukaart="voorgerecht" :cat="categorie"></voorgerecht>
 <vlees :menukaart="vlees" :cat="categorie"></vlees>
@@ -92,6 +92,7 @@ return this.$store.getters["Bestelling/menukaart"]
 
 },
 
+
 drank(){
   let menu=this.$store.state.Bestelling.menukaart
 return menu.filter(e=>e.categorie=='drank') 
@@ -120,7 +121,15 @@ nagerecht(){
   let menu=this.$store.state.Bestelling.menukaart
 return menu.filter(e=>e.categorie=='nagerecht') 
 
-},
+}
+
+/*eenheid(){ return this.$store.getters["Bestelling/bestelling"]},*/
+}, 
+
+/*watch:{
+eenheid(){
+this.menukaart=this.$store.getters["Bestelling/menukaart"]
+*/
 
 
 
@@ -129,7 +138,10 @@ return menu.filter(e=>e.categorie=='nagerecht')
 
 
 
-},
+
+
+
+
   
 
 
@@ -148,7 +160,7 @@ this.$store.dispatch('Bestelling/toevoegenAanBestelling', gerecht)
 herbeginnen(){
 
 this.$store.dispatch('Bestelling/herbeginnen')
-
+this.$store.dispatch('Bestelling/menukaart')
 },
 verwijderen(index){
 
