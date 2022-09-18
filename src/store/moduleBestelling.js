@@ -203,8 +203,8 @@ const getters={
         bestelling: (state)=> { return state.bestelling},
         datum:(state) =>{return state.datum} ,  
         totaal:(state) =>{return state.totaal} ,    
-        adres :(state) =>{return state.adres}  
-        
+        adres :(state) =>{return state.adres}, 
+        categorie:(state) =>{return state.categorie}
 
 
     }

@@ -97,7 +97,7 @@ console.log(this.Validatiefouten)
 
 
 
-}
+}}
 
 
 
@@ -106,7 +106,7 @@ if (this.validatiefout==false){
 
 this.$store.dispatch('Bestelling/bevestigen', {datum:this.$store.state.Bestelling.datum, adres:{gemeente:this.gemeente,straat:this.straat,huisnummer:this.huisnummer}})
 this.$router.push('/smakelijk')
-}}
+}
 
 
 

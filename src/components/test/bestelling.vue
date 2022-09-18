@@ -1,13 +1,11 @@
 <template>
   <div is="geheel">
-<ul id="menukaart">
-<li   v-for="(gerecht,index) in menukaart" :key="gerecht._id" :gerecht="gerecht" ref="gerechtenlijst" >
-  {{gerecht.naam}} <br/>{{gerecht.prijs}} euro 
-<div v-if="gerecht.aantal>0">  {{gerecht.aantal}}</div>
-<button @click="keuze(index)"> + </button>
-<button v-if="gerecht.aantal>0" @click="verwijderen(index)">-</button>
-</li>
-</ul>
+<drank :menukaart="drank" :cat="categorie"></drank>
+<voorgerecht :menukaart="voorgerecht" :cat="categorie"></voorgerecht>
+<vlees :menukaart="vlees" :cat="categorie"></vlees>
+<vis :menukaart="vis" :cat="categorie"></vis>
+<nagerecht :menukaart="nagerecht" :cat="categorie"></nagerecht>
+
 
 <input v-model="datum" type="datetime-local"/> <br/>
 
@@ -22,10 +20,12 @@
 </template>
 
 <script>
-//import { createDOMCompilerError } from '@vue/compiler-dom';
 
-//import router from '/src/router.js'
-
+import drank from './drank.vue'
+import vlees from './vlees.vue'
+import vis from './vis.vue'
+import voorgerecht from './voorgerecht.vue'
+import nagerecht from './nagerecht.vue'
 
 export default {
   data(){
@@ -34,6 +34,8 @@ datum:''
 }
 
   },
+  components: {drank,vlees,vis,nagerecht,voorgerecht},
+
   created(){
  
 return{
@@ -76,28 +78,58 @@ return totaal
 
 },
 
-categorie(){ return this.$store.state.Bestelling.categorie},
+categorie(){ return this.$store.getters["Bestelling/categorie"]
 
 
 
-  
+},
   menukaart(){
-  const categorie= this.categorie 
-
-console.log(categorie)
-if(categorie=='alles'){
-return this.$store.state.Bestelling.menukaart
-}
-else
-
-{
-let menu=this.$store.state.Bestelling.menukaart
-return menu.filter(e=>e.categorie==categorie)
-}
+  
+return this.$store.getters["Bestelling/menukaart"]
 
 
 
-}},
+
+},
+
+drank(){
+  let menu=this.$store.state.Bestelling.menukaart
+return menu.filter(e=>e.categorie=='drank') 
+
+},
+
+voorgerecht(){
+  let menu=this.$store.state.Bestelling.menukaart
+return menu.filter(e=>e.categorie=='voorgerecht') 
+
+},
+
+vlees(){
+  let menu=this.$store.state.Bestelling.menukaart
+return menu.filter(e=>e.categorie=='vlees') 
+
+},
+
+vis(){
+  let menu=this.$store.state.Bestelling.menukaart
+return menu.filter(e=>e.categorie=='vis') 
+
+},
+
+nagerecht(){
+  let menu=this.$store.state.Bestelling.menukaart
+return menu.filter(e=>e.categorie=='nagerecht') 
+
+},
+
+
+
+
+
+
+
+
+},
   
 
 
@@ -156,7 +188,7 @@ this.$router.push('/winkelkar')
 *{
 
   font-size:1.3rem;
-
+color: red;
 }
 #menukaart{
 

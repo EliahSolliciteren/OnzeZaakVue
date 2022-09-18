@@ -4,7 +4,7 @@ import axios from 'axios';
 const state={
 klant: null,
 token:'',
-
+aanmelderror:''
 
 
 }
@@ -49,7 +49,9 @@ password:payload.wachtwoord
         password:payload.wachtwoord
         }
         
-        }).then((response)=>{console.log(response.data.token)
+        }).then((response)=>{
+          
+          
             commit('SET_TOKEN',response.data.token)
         commit('SET_GEBRUIKER',response.data)    
         console.log(
@@ -58,7 +60,8 @@ password:payload.wachtwoord
         
         
         
-        })},
+        }).catch((error)=>{commit('AANMELDERROR',true)})
+},
       afmelden({commit}){
 
 commit('AFMELDEN')
@@ -82,6 +85,10 @@ commit('AFMELDEN')
               AFMELDEN: state => {
                 state.klant=null,
                 state.token=''
+              },
+              AANMELDERROR: (state,eenBoolean) => {
+                  state.aanmelderror=eenBoolean
+
               }
             }
         
@@ -90,7 +97,8 @@ commit('AFMELDEN')
     const getters={
     
             token: state => {return state.token},
-            klant: state=>{return state.klant}
+            klant: state=>{return state.klant},
+            aanmeldError: state=>{return state.aanmelderror}
             }
     
     

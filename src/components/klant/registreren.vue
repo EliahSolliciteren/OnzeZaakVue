@@ -1,30 +1,43 @@
 <template>
- 
+ <div id="formulierGrid">
     <Form  @submit="nieuweKlant" id="formulier">
-        <label for="voornaam"></label>
-        
-        <input
-   
-       type="text" id='voornaam' name="voornaam" v-model="formulier.voornaam" 
-        />
-        
-        <br/>
-      
+        <label for="voornaam"> voornaam</label>
+        <input type="text" id='voornaam' name="voornaam" v-model="formulier.voornaam" />
+        <span v-if='validatieObject.voornaam'>{{validatieObject.voornaam}}</span>
+        <br>
     <label for="familienaam">familienaam:</label>
         <input v-model="formulier.familienaam" />
-        <br/>
+        <span v-if='validatieObject.familienaam'>{{validatieObject.familienaam}}</span>
+
+        <br>
         <label for="email">email:</label>
     <input  v-model="formulier.email"/>
-    <br/>
+    <span v-if='validatieObject.email'>{{validatieObject.email}}</span>
+
+    <br>
     <label for="wachtwoord">wachtwoord:</label>
     <input v-model="formulier.wachtwoord" type="password" />
-    <br/>
+    <div v-if="this.validatieObject.wachtwoord">
+<ul><ul><li>wachtwoorden zouden:</li></ul>
+<li>Op zijn minst 5 tekens lang moeten zijn</li>
+<li> Minstens één hoofdletter moeten hebben</li>
+<li>Minstens één getal of speciaal teken hebben </li>
+</ul>
+    </div>
+    <br>
+    
+    <label for="wachtwoordBevestigen">Herhaal het wachtwoord:</label>
+    <input v-model="formulier.wachtwoordBevestigen" type="password" />
+    <span v-if="validatieObject.wachtwoordBevestigen"> {{validatieObject.wachtwoordBevestigen}}</span>
+
+    <br>
     <label for="telefoonnummer">telefoonnummer:</label>
     <input v-model="formulier.telefoonnummer"/>
-    <br/>
+    <span v-if="validatieObject.telefoonnummer"> {{validatieObject.telefoonnummer}}</span>
+    <br>
     <label for="gemeente">gemeente:</label>
     <input  v-model="formulier.gemeente"/>
-    <br/>
+    <br>
     <label for="straat">straat:</label>
     <input v-model="formulier.straat"/>
     <br/>
@@ -33,7 +46,7 @@
     <br/>
     <button type="submit" > Account Aanmaken</button>
 </form>    
-
+</div>
     
     </template>
     <script>
@@ -48,18 +61,59 @@
     gemeente:'',
     straat:'',
     huisnummer:'',
-    wachtwoord:''
-    
-    }
+    wachtwoord:'',
+    wachtwoordBevestigen:'',
+validatieFout:false   
+},
+    validatieObject:{voornaam:'', familienaam:'',email:'',wachtwoord:'',wachtwoordBevestigen:'', telefoonnummer:''}
         }},
     methods:{
     nieuweKlant(e){
         console.log(this.formulier)
-    e.preventDefault();
+    e.preventDefault()
     console.log(e)
+    this.validatieObject={voornaam:'', familienaam:'',email:'',wachtwoord:'',wachtwoordBevestigen:'', telefoonnummer:''}
+
+if (this.formulier.voornaam.length<2)
+{this.validatieObject.voornaam='Gelieve je voornaam te geven'
+this.validatieFout=true
+;console.log(this.formulier.voornaam.length)}
+if (this.formulier.familienaam.length<3)
+{this.validatieObject.familienaam='Gelieve je familienaam te geven'
+this.validatieFout=true
+}
+const emailRegexp = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}')
+if (!emailRegexp.test(this.formulier.email)){
+{this.validatieObject.email='Gelieve een geldig emailadres te geven'
+this.validatieFout=true}}
+const eenGetalRegexp = new RegExp(/\d/)
+const speciaalTekenRegexp = new RegExp(/[*@!#%&()^~{}]+/)
+const eenHoofdletterRegexp= new RegExp(/[A-Z]+/)
+if (this.formulier.wachtwoord.length<5 ||(!eenGetalRegexp.test(this.formulier.wachtwoord)&&!speciaalTekenRegexp.test(this.formulier.wachtwoord))||!eenHoofdletterRegexp.test(this.formulier.wachtwoord))
+{this.validatieObject.wachtwoord='ww fout'
+this.validatieFout=true}
+if (this.formulier.wachtwoord!==this.formulier.wachtwoordBevestigen){
+    this.validatieObject.wachtwoordBevestigen='De wachtwoorden komen niet overeen'
+this.validatieFout=true
+}
+this.formulier.telefoonnummer=this.formulier.telefoonnummer.replace('/','')
+const regExpTelefoonNummer= new RegExp(/^\d+$/ )
+if(!regExpTelefoonNummer.test(this.formulier.telefoonnummer)){
+    this.validatieObject.telefoonnummer='gelieve een geldig telefoonnummer te geven'
+    this.validatieFout=true
+
+
+
+}
+
+
+
+
+if (!this.validatieFout){
+
     this.$store.dispatch('Klant/klantAanmaken', this.formulier)
     this.$router.push('/')
-    
+}
     }
     
     

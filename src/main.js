@@ -29,12 +29,14 @@ required:() => 'Gelieve je familienaam te geven'
 }
 
 
-axios.defaults.headers.common['Authorization'] = store.state.token
+axios.defaults.headers.common['Authorization'] = store.getters["Klant/token"]
+console.log('token: '+store.getters)
 //axios.defaults.withCredentials = true
 
 axios.interceptors.request.use(function (config) {
+
     config.headers = {
-        'x-access-token': store.state.token
+        'x-access-token': store.getters["Klant/token"]
      }
   
       return config;

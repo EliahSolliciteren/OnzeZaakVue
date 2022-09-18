@@ -13,7 +13,7 @@
     <input id="wachtwoord" v-model.trim="wachtwoord"/>
     <br/>
     <button @click='aanmelden' type="submit">aanmelden</button>
-    
+    <span v-if="error">Dit lukte niet.</span>
     </div>
 
     </template>
@@ -35,6 +35,11 @@ afmelden(){
     this.$store.dispatch('Klant/afmelden')
 
 
+}},
+computed:{
+error()
+{
+return this.$store.getters['Klant/aanmeldError']
 }
 }
 
