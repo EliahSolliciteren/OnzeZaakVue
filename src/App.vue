@@ -4,9 +4,9 @@
 <div id="aanmelden"> <aanmelden/></div>
 <div id="rechtsboven"> </div>
 <div id="routerview">
-<keepAlive><router-view ></router-view></keepAlive> </div>
-<div id="navigatiebalk"></div>
-<div id="footer"><component :is="banner"></component></div>
+<keep-alive><router-view ></router-view></keep-alive> </div>
+<div id="navigatiebalk"><component :is="banner"></component></div>
+<div id="footer"></div>
 <div id="linkerbalk"> <router-view name="links"></router-view></div>
 <div id="rechterbalk"></div> 
 </div>
@@ -68,22 +68,7 @@ created(){
 
 
 
-/*
-setInterval(function(){
-let deTeller=this.teller
-console.log(deTeller),2000},
-setInterval(function(){return this.teller++},1900))}}
-/*if(parseInt(this.teller)==0){
-console.log(parseInt(this.teller))
-  return this.banner=banner1
-}
-else if(this.teller%3==1){
-return this.banner=banner2
-}
-else{
-return this.banner=banner3
 
-}},2000)*/
 
 
 
@@ -114,14 +99,16 @@ height: 100vh;
 
 grid-area: aanmelden;
 background-color: darkcyan;
-min-height: 15vh;
-max-height: 15vh;
+min-height: 20vh;
+max-height: 20vh;
 }
 #routerview{
 
 grid-area: routerview;
-background-color: darkmagenta;
+background-color: rgb(138, 247, 255);
+
 min-height: 70vh;
+max-height: 70vh;
 overflow-y: scroll;
 }
 
@@ -132,14 +119,15 @@ background-color: rosybrown;
 min-height: 15vh;
 max-height: 15vh;
 /*align-content: center;*/
-
+;
 }
 #navigatiebalk{
 
 grid-area: navigatiebalk;
-background-color: darkslategrey;
-
-
+background-color: lightcyan;
+justify-content: center;
+align-items: center;
+display: flex;
 
 }
 
@@ -151,7 +139,7 @@ background-color: azure;
 
 grid-area: linkerbalk;
 background-color: green;
-min-width: 20vw;
+min-width: 10vw;
 
 }
 #rechtsboven{

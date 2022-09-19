@@ -1,5 +1,5 @@
 <template>
-  <div id="geheel">
+  <div class="geheel">
 <drank :menukaart="drank" :cat="categorie"></drank>
 <voorgerecht :menukaart="voorgerecht" :cat="categorie"></voorgerecht>
 <vlees :menukaart="vlees" :cat="categorie"></vlees>
@@ -7,11 +7,7 @@
 <nagerecht :menukaart="nagerecht" :cat="categorie"></nagerecht>
 
 
-<input v-model="datum" type="datetime-local"/> <br/>
-
-<button @click="herbeginnen">Herbegin selectie</button>
-<button @click="plaatsen">Bestelling plaatsen</button>
-</div> 
+</div>
 
 
 
@@ -51,7 +47,7 @@ return{
   },
   mounted(){
 return {
-  loggen: console.log(this.$refs.gerechtenlijst/*.innerText*/)
+  //loggen: console.log(this.$refs.gerechtenlijst/*.innerText*/)
 
 }
 
@@ -123,13 +119,12 @@ return menu.filter(e=>e.categorie=='nagerecht')
 
 }
 
-/*eenheid(){ return this.$store.getters["Bestelling/bestelling"]},*/
+,eenheid(){ return this.$store.getters["Bestelling/bestelling"]},
 }, 
 
-/*watch:{
-eenheid(){
-this.menukaart=this.$store.getters["Bestelling/menukaart"]
-*/
+
+
+
 
 
 
@@ -157,11 +152,7 @@ this.$store.dispatch('Bestelling/toevoegenAanBestelling', gerecht)
 
 
 },
-herbeginnen(){
 
-this.$store.dispatch('Bestelling/herbeginnen')
-this.$store.dispatch('Bestelling/menukaart')
-},
 verwijderen(index){
 
   let gerecht=this.menukaart[index]
@@ -169,17 +160,7 @@ console.log(gerecht)
   this.$store.dispatch('Bestelling/verwijderen', gerecht)
 
 },
-plaatsen(){
-  console.log(this.datum)
-this.$store.dispatch('Bestelling/plaatsen', {totaal: this.totaal, datum: this.datum})
-this.$router.push('/winkelkar')
 
-
-
-
-
-
-}
 
 
 
@@ -198,16 +179,24 @@ this.$router.push('/winkelkar')
 
 <style scoped>
 *{
-
-  font-size:1.3rem;
-color: red;
+height: 100%;
+  font-size:1.4rem;
+color: white;
+background-color: grey;
 }
-#menukaart{
+.menukaart{
 
 display:flex;
 flex-wrap: wrap;
 list-style: none;
 
+
+}
+
+.aantal{
+
+display: flex;
+flex-direction: row;
 
 }
 

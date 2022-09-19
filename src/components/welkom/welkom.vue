@@ -58,8 +58,8 @@ flex-direction: row;
 
 }
 
-.tekst{
-
+*{
+font-size: 1.4rem;
 
 
 

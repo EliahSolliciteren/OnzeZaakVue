@@ -3,16 +3,24 @@
 
 <div>adres van levering</div>
 <div id="adres">
-<div>gemeente:</div>
-<div  v-if="gemeente">{{gemeente}}</div>
-<input @input="storeGemeente" v-else v-model="gemeente2"/>      
-<div>straat:</div>
-<div v-if="straat">{{straat}}</div>
-<input @input="storeStraat" v-else v-model="straat2"/> 
-<div>huisnummer:</div>
-<div v-if="huisnummer">{{huisnummer}}</div>
-<input @input="storeHuisnummer" v-else v-model.number="huisnummer2"/> 
-<br/><span v-if="(!this.$store.state.Klant.klant)">Wij leren u graag beter kennen: log alstublief in of maak een account aan</span>
+<div v-if="gemeente">gemeente:
+ {{gemeente}}</div>
+  <div v-else>
+<label for="gemeente">gemeente: </label>
+ <input @input="storeGemeente"  v-model="gemeente2"/>      
+</div>
+<div v-if="straat">straat:
+ {{straat}}</div>
+  <div v-else>
+<label for="straat">straat: </label>
+ <input @input="storeStraat"  v-model="straat2" />      
+</div>
+<div v-if="huisnummer">huisnummer:
+ {{huisnummer}}</div>
+  <div v-else>
+<label for="huisnummer">huisnummer</label>
+ <input @input="storeHuisnummer"  v-model="huisummer2" />      
+</div>
 </div>
 
 
@@ -107,8 +115,10 @@ padding-top: 1rem;
 }
 
 input
-{max-width: 8vw;}
-
+{max-width: 8vw;
+display:flex;
+column-gap:3vh
+}
 
 
 

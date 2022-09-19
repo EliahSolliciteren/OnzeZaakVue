@@ -1,20 +1,31 @@
 <template>
- <div :class="classObject">
- <div id="geheel" >
 
-  <div>nagerecht</div>
+
+<div :class="classObject">
   
-<ul id="menukaart">
-<li   v-for="(gerecht,index) in menukaart" :key="gerecht._id" :gerecht="gerecht" ref="gerechtenlijst" >
-  {{gerecht.naam}} <br/>{{gerecht.prijs}} euro 
-<div v-if="gerecht.aantal>0">  {{gerecht.aantal}}</div>
-<button @click="keuze(index)"> + </button>
+  <div>nagerecht</div>
+  <div id="grid">
+  
+<ul class="menukaart">
+ 
+<li   v-for="(gerecht,index) in menukaart" :key="gerecht._id" :gerecht="gerecht" class="item" >
+ <div class="product">{{gerecht.naam}} <br/>{{gerecht.prijs}} euro 
+<div v-if="gerecht.aantal>0"> Aantal: {{gerecht.aantal}}</div> 
+<div v-else class="onzichtbaar" > Aantal: {{gerecht.aantal}}</div> <br>
+
+</div> 
+<div class="aantal">
+<button @click="keuze(index)" class="plus"> + </button>
 <button v-if="gerecht.aantal>0" @click="verwijderen(index)">-</button>
+<button v-else class="onzichtbaar" @click="verwijderen(index)">-</button>
+
+</div>
 </li>
 </ul>
 </div>
+</div>
 
-</div> 
+
 
 
 
@@ -28,15 +39,25 @@
 
 export default {
   data(){
-return{}},
+return{
+
+
+
+
+}
+
+
+},
 
 computed:{
 classObject(){
-  return {hidden:this.cat!=='alles'&&this.cat!=='nagerecht'}}
-},
+  return {hidden:this.cat!=='alles'&&this.cat!=='nagerecht'}
 
- 
-  props:['menukaart','cat'],
+}},
+ //ternary operator was ook mogelijk geweest, maar eventuaal nog
+//een klasse voor als je bij this.cat=='drank' anders wilt reageren 
+
+  props:['menukaart', 'cat'],
 
   
 methods:{
@@ -45,7 +66,7 @@ keuze(index)
 {
 
 let gerecht=this.menukaart[index]
-//console.log()
+
 this.$store.dispatch('Bestelling/toevoegenAanBestelling', gerecht)
 
 
@@ -62,9 +83,13 @@ console.log(gerecht)
 
 
 
+
+
+  
+
+
+
 }
-
-
 
 
 
@@ -80,25 +105,72 @@ console.log(gerecht)
 </script>
 
 <style scoped>
-*{
 
-  font-size:1.3rem;
+.menukaart{
 
-}
-#menukaart{
 
-display:flex;
-flex-wrap: wrap;
+
 list-style: none;
 
 
 }
+
+.grid{
+display:flex;
+flex-direction:column;
+flex-wrap: wrap;
+
+}
+
+
 .hidden{
 
 display:none
 
 }
 
+.onzichtbaar{
+visibility: hidden;
+
+}
+
+
+
+.item{
+min-width: 20vw;
+max-width: 20vw;
+min-height: 12vh;
+max-height: 12vh;
+  margin-left: 2vw;
+   margin-right:2vw ;
+border: solid black 0.5px;
+
+display:flex;
+flex-direction: row;
+justify-content: space-around;
+}
+
+
+
+.product{
+
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+}
+
+
+
+.aantal{
+
+display:flex;
+flex-direction: column;
+justify-content: space-around;
+
+
+}
 
 
 

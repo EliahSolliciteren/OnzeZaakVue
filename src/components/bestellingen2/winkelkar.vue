@@ -1,20 +1,11 @@
 <template>
-<div id="overzicht">
-    <div id="buitenste">
-<div id="lijn1"><div>gerecht</div> <div>aantal</div> <div>eenheisprijs </div><div>totaal</div></div>
-<ul id="opsomming"  v-for="gerecht in bestelling">
-<li id="gerecht" v-if="gerecht.aantal>0">
-    <div>{{gerecht.naam}} </div>  
-    <div>{{gerecht.aantal}}</div>
-<div>{{gerecht.prijs}}</div>
-<div>{{gerecht.prijs*gerecht.aantal}}</div>
-</li>
 
-</ul>
+<overzicht/>
+
 <span v-if="Validatiefouten.gerechten">{{Validatiefouten.gerechten}}</span>
-</div>
+<div class="marge">
 <adres/>
-<span v-if="Validatiefouten.adres">{{Validatiefouten.adres}}</span>
+<div v-if="Validatiefouten.adres">{{Validatiefouten.adres}}</div>
 
 
 <div v-if="datum2">bestelling wordt geleverd op: {{datum2}}</div>
@@ -22,26 +13,30 @@
 <span v-if="Validatiefouten.datum">{{Validatiefouten.datum}}</span>
 <br>
 <button @click="bevestigen">Bevestig de bestelling</button>
+
+{{totaal}}
 </div>
+
+
 </template>
 
 <script>
     
 
 import adres from './adres.vue'
+import overzicht from './overzicht.vue'
     export default{
 data(){
 return{
 datum3:'',   
 datum2:false,
-bestelling: this.$store.state.Bestelling.bestelling,
 Validatiefouten:{datum:'',gerechten:'',adres:'' },
 validatiefout:false
 
 }
 },
 computed:{
-    
+
 datum2(){
 const datum2=this.$store.state.Bestelling.datum
 let dag=datum2.substring(8,10)
@@ -74,11 +69,12 @@ this.Validatiefouten.datum='Gelieve de datum na te kijken'
 this.validatiefout=true
 
 }
-if (this.$store.getters["Bestelling/totaal"]==0){
-    console.log(this.$store.getters["Bestelling/totaal"])
+if (this.$store.getters['Bestelling/totaal']=0){
+    
     this.Validatiefouten.gerechten='Je hebt geen gerechten geselecteerd'
 this.validatiefout=true; console.log('gezocht:'+this.$store.getters["Bestelling/adres"].gemeente)
 }
+
 //console.log(this.Validatiefouten) 
 
 if(this.$store.getters["Klant/klant"]){
@@ -118,9 +114,9 @@ this.$router.push('/smakelijk')
 
 
 },
-emits:['adresNaarStore'],
+
 components:{
-adres
+adres, overzicht
 
 
 
@@ -137,53 +133,15 @@ font-size:1.4rem
 
 
 }
-#overzicht{
- margin-left: 10%;
- margin-top: 5rem;
-background-color: lightskyblue;
-width:60%;
+
+.marge{
+
+margin-left: 3vw;
 
 
 
 }
 
-#lijn1{
-color:black;
-display:flex;
-flex-direction: row;
-justify-content: space-between;
-
-/*justify-content: center;*/
-}
-#gerecht{
-
-display:flex;
-justify-content:space-between
-
-
-}
-
-#opsomming{
-
-list-style: none;
-
-
-
-
-}
-
-#opsomming li{
-list-style-position: outside;
-}
-
-#buitenste{
-
-margin-left:1vw;
-margin-right: 1vw;
-margin-top: 10vh;
-margin-bottom: 1vh
-
-}
 
 
 

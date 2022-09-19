@@ -37,8 +37,8 @@ data(){
     align-items: center;
     flex-direction: column;
     vertical-align: center;
-    text-align: center;
-    margin-top: 4vh;
+    text-align: middle;
+    
     }
     
     

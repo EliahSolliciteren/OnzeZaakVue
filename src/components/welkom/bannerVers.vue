@@ -34,7 +34,7 @@ display:flex;
 align-items: center;
 flex-direction: column;
 vertical-align: center;
-margin-top:3.5vh; }
+ }
 
 
 </style>

@@ -1,15 +1,13 @@
 <template>
 
 <div id="centreren">
-
 <div id="titel">Registreren biedt verschillende voordelen</div> 
-
+<div>
 <ol>
 <li>gemakkelijk en sneller bestellen</li>
 <li>10% korting op de eindafrekening</li>
-
-
 </ol>
+</div>
 </div>
 
 
@@ -29,15 +27,15 @@ return{}
 #centreren{
 
 font-size:1.4rem;
-display:flex;
-align-items: center;
+display:flex ;
 flex-direction: column;
-vertical-align: middle;
+justify-content: center;
+align-items: center;
 
 }
 #titel{
 
-margin-top:1.5vh
+
 
 }
 

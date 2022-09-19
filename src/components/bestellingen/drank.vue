@@ -4,17 +4,28 @@
 <div :class="classObject">
   
   <div>drank</div>
-<ul id="menukaart">
+  <div id="grid">
+  
+<ul class="menukaart">
+ 
 <li   v-for="(gerecht,index) in menukaart" :key="gerecht._id" :gerecht="gerecht" class="item" >
-  {{gerecht.naam}} <br/>{{gerecht.prijs}} euro 
-<div v-if="gerecht.aantal>0"> Aantal: {{gerecht.aantal}}</div> <br>
+ <div class="product">{{gerecht.naam}} <br/>{{gerecht.prijs}} euro 
+<div v-if="gerecht.aantal>0"> Aantal: {{gerecht.aantal}}</div> 
+<div v-else class="onzichtbaar" > Aantal: {{gerecht.aantal}}</div> <br>
+
+</div> 
+<div class="aantal">
 <button @click="keuze(index)" class="plus"> + </button>
 <button v-if="gerecht.aantal>0" @click="verwijderen(index)">-</button>
+<button v-else class="onzichtbaar" @click="verwijderen(index)">-</button>
+
+</div>
 </li>
 </ul>
 </div>
+</div>
 
-{{eenheid}}
+
 
 
 
@@ -95,12 +106,19 @@ console.log(gerecht)
 
 <style scoped>
 
-#menukaart{
+.menukaart{
 
-display:flex;
-flex-wrap: wrap;
+
+
 list-style: none;
 
+
+}
+
+.grid{
+display:flex;
+flex-direction:column;
+flex-wrap: wrap;
 
 }
 
@@ -111,20 +129,45 @@ display:none
 
 }
 
-.item{
-
-  margin-left: 2vw;
-   margin-right:2vw ;
-border: solid black 0.5px;
-margin-bottom: 2vw;
-
+.onzichtbaar{
+visibility: hidden;
 
 }
 
-.plus{
 
-margin-bottom: 1vh;
-margin-right: 1.5vw;
+
+.item{
+min-width: 20vw;
+max-width: 20vw;
+min-height: 12vh;
+max-height: 12vh;
+  margin-left: 2vw;
+   margin-right:2vw ;
+border: solid black 0.5px;
+
+display:flex;
+flex-direction: row;
+justify-content: space-around;
+}
+
+
+
+.product{
+
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+}
+
+
+
+.aantal{
+
+display:flex;
+flex-direction: column;
+justify-content: space-around;
 
 
 }

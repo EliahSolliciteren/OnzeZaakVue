@@ -1,7 +1,6 @@
 //import createPersistedState from "vuex-persistedstate";
 
 import axios from "axios";
-import store from "./store";
 
 const state={
 
@@ -102,7 +101,7 @@ adres:{gemeente:getters.adres.gemeente||klant.gemeente, straat:getters.adres.str
 
 //adres: getters.adres//rootGetters['Klant/klant']
 }
-}).then(()=>{commit('GEMEENTE',''),commit('STRAAT',''), commit('HUISNUMMER','')
+}).then(()=>{commit('GEMEENTE',''),commit('STRAAT',''), commit('HUISNUMMER',''), commit('HERBEGINNEN','')
 
 
 
@@ -148,7 +147,7 @@ console.log(indexBestelling)
 
 HERBEGINNEN(state){
     state.menukaart= []
-    state.gerechten=[]
+    state.bestelling=[]
 console.log('In orde?')
 },
 VERWIJDEREN(state, payload){
