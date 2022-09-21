@@ -1,14 +1,22 @@
 <template>
-  <div class="geheel">
-<drank :menukaart="drank" :cat="categorie"></drank>
+  <div :class="(categorie=='alles')?'geheel':''">
+    <div :class=classObjectD>
+ <drank :menukaart="drank" :cat="categorie"></drank>     
+    </div>
+<div :class=classObjectVoorgerecht>
 <voorgerecht :menukaart="voorgerecht" :cat="categorie"></voorgerecht>
-<vlees :menukaart="vlees" :cat="categorie"></vlees>
-<vis :menukaart="vis" :cat="categorie"></vis>
-<nagerecht :menukaart="nagerecht" :cat="categorie"></nagerecht>
-
-
+</div>
+<div :class=classObjectVlees><vlees :menukaart="vlees" :cat="categorie"></vlees>
 </div>
 
+<div :class=classObjectVis>
+<vis :menukaart="vis" :cat="categorie"></vis>
+</div>
+<div :class=classObjectNagerecht>
+<nagerecht :menukaart="nagerecht" :cat="categorie"></nagerecht>
+</div>
+<div id="background"></div>
+</div>
 
 
 
@@ -53,13 +61,14 @@ return {
 
   },
   computed:{
+    /*
 totaal(){
-const bestelling=this.$store.state.Bestelling.bestelling
+const bestelling=this.$store.getters["Bestelling/bestelling"]
 let totaal=0
 if (bestelling.length>0){
 bestelling.forEach(gerecht=>{
 totaal=totaal+gerecht.prijs*gerecht.aantal
-//totaal=totaal +gerecht*prijs+gerecht*aantal
+
 
 
 
@@ -70,6 +79,11 @@ totaal=0
 return totaal
 
 
+
+
+},*/
+bestelling(){
+return this.$store.getters["Bestelling/bestelling"]
 
 
 },
@@ -117,10 +131,47 @@ nagerecht(){
   let menu=this.$store.state.Bestelling.menukaart
 return menu.filter(e=>e.categorie=='nagerecht') 
 
-}
+},
+classObjectD(){
+  return {hidden:this.categorie!=='alles'&&this.categorie!=='drank',
+  drank:this.categorie=='alles'&&this.categorie!=='drank',
+  alleen:this.categorie=='drank'
 
-,eenheid(){ return this.$store.getters["Bestelling/bestelling"]},
-}, 
+}
+},
+classObjectVis(){
+  return {hidden:this.categorie!=='alles'&&this.categorie!=='vis',
+  vis:this.categorie=='alles'&&this.categorie!=='vis',
+  alleen:this.categorie=='vis'
+
+}
+},
+classObjectVlees(){
+  return {hidden:this.categorie!=='alles'&&this.categorie!=='vlees',
+  vlees:this.categorie=='alles'&&this.cat!=='vlees',
+  alleen:this.categorie=='vlees'
+
+}
+},
+classObjectVoorgerecht(){
+  return {hidden:this.categorie!=='alles'&&this.categorie!=='voorgerecht',
+  voorgerecht:this.categorie=='alles'&&this.categorie!=='voorgerecht',
+  alleen:this.categorie=='voorgerecht'
+
+}
+},
+classObjectNagerecht(){
+  return {hidden:this.categorie!=='alles'&&this.categorie!=='nagerecht',
+  nagerecht:this.categorie=='alles'&&this.categorie!=='nagerecht',
+  alleen:this.categorie=='nagerecht'
+
+}
+},
+},
+
+
+
+
 
 
 
@@ -180,6 +231,7 @@ console.log(gerecht)
 <style scoped>
 *{
 height: 100%;
+width: 100%;
   font-size:1.4rem;
 color: white;
 background-color: grey;
@@ -200,12 +252,54 @@ flex-direction: row;
 
 }
 
+.geheel{
+
+display: grid;
+grid-template-areas:
+"drank vis nagerecht"
+"voorgerecht vlees background"
+
+}
+
+
+.drank{
+
+grid-area:drank;
+
+}
+.voorgerecht{
+
+grid-area:voorgerecht;
+
+}
+
+.vlees{
+
+grid-area:vlees;
+
+}
+.vis{
+
+grid-area:vis;
+
+}
+
+.nagerecht{
+
+grid-area:nagerecht;
+
+}
+.hidden{
+
+  display:none
+}
 
 
 
+#background{
 
-
-
+  background-color: grey;
+}
 
 
 

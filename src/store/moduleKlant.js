@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from './store';
 
 
 const state={
@@ -20,9 +21,9 @@ aanmelderror:''
 
 
 const actions={
-klantAanmaken({commit},payload){
+async klantAanmaken({commit},payload){
     console.log(payload)
-    axios({
+ await axios({
 url:"http://localhost:3001/klant/create",
 method:'post',
 data:{
@@ -37,7 +38,9 @@ huisnummer: payload.huisnummer,
 password:payload.wachtwoord
 
     
-    }})},
+    }})
+
+},
 
     aanmelden({commit},payload){
         console.log(payload.email)
@@ -54,12 +57,9 @@ password:payload.wachtwoord
           
             commit('SET_TOKEN',response.data.token)
         commit('SET_GEBRUIKER',response.data)    
+        commit('AANMELDERROR',false)
         console.log(
             response.data)
-        
-        
-        
-        
         }).catch((error)=>{commit('AANMELDERROR',true)})
 },
       afmelden({commit}){

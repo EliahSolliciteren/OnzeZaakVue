@@ -1,24 +1,27 @@
 <template>
  <div id="formulierGrid">
+    
     <Form  @submit="nieuweKlant" id="formulier">
+<div class="wrapper">    
+        <div class="verplicht">
         <label for="voornaam"> voornaam</label>
         <input type="text" id='voornaam' name="voornaam" v-model="formulier.voornaam" />
-        <span v-if='validatieObject.voornaam'>{{validatieObject.voornaam}}</span>
+        <span class="validatie" v-if='validatieObject.voornaam'>{{validatieObject.voornaam}}</span>
         <br>
     <label for="familienaam">familienaam:</label>
         <input v-model="formulier.familienaam" />
-        <span v-if='validatieObject.familienaam'>{{validatieObject.familienaam}}</span>
+        <span class="validatie" v-if='validatieObject.familienaam'>{{validatieObject.familienaam}}</span>
 
         <br>
         <label for="email">email:</label>
     <input  v-model="formulier.email"/>
-    <span v-if='validatieObject.email'>{{validatieObject.email}}</span>
+    <span class="validatie" v-if='validatieObject.email'>{{validatieObject.email}}</span>
 
     <br>
     <label for="wachtwoord">wachtwoord:</label>
     <input v-model="formulier.wachtwoord" type="password" />
     <div v-if="this.validatieObject.wachtwoord">
-<ul><ul><li>wachtwoorden zouden:</li></ul>
+<ul class="validatie"><ul><li class="lijstTitel">wachtwoorden zouden:</li></ul>
 <li>Op zijn minst 5 tekens lang moeten zijn</li>
 <li> Minstens één hoofdletter moeten hebben</li>
 <li>Minstens één getal of speciaal teken hebben </li>
@@ -28,28 +31,38 @@
     
     <label for="wachtwoordBevestigen">Herhaal het wachtwoord:</label>
     <input v-model="formulier.wachtwoordBevestigen" type="password" />
-    <span v-if="validatieObject.wachtwoordBevestigen"> {{validatieObject.wachtwoordBevestigen}}</span>
+    <span class="validatie" v-if="validatieObject.wachtwoordBevestigen"> {{validatieObject.wachtwoordBevestigen}}</span>
 
     <br>
+</div>
+    <div class="optioneel">
     <label for="telefoonnummer">telefoonnummer:</label>
     <input v-model="formulier.telefoonnummer"/>
-    <span v-if="validatieObject.telefoonnummer"> {{validatieObject.telefoonnummer}}</span>
+    <span class="validatie" v-if="validatieObject.telefoonnummer"> {{validatieObject.telefoonnummer}}</span>
     <br>
     <label for="gemeente">gemeente:</label>
     <input  v-model="formulier.gemeente"/>
     <br>
     <label for="straat">straat:</label>
     <input v-model="formulier.straat"/>
-    <br/>
+    <br>
     <label for="huisnummer">huisnummer:</label>
     <input v-model="formulier.huisnummer"/>
-    <br/>
+   <br>
+   <br>
     <button type="submit" > Account Aanmaken</button>
+</div>
+    
+</div>
+
+    
 </form>    
 </div>
     
     </template>
     <script>
+
+
         export default{
     data(){
         return{
@@ -73,7 +86,7 @@ validatieFout:false
     e.preventDefault()
     console.log(e)
     this.validatieObject={voornaam:'', familienaam:'',email:'',wachtwoord:'',wachtwoordBevestigen:'', telefoonnummer:''}
-
+    this.validatieFout=false 
 if (this.formulier.voornaam.length<2)
 {this.validatieObject.voornaam='Gelieve je voornaam te geven'
 this.validatieFout=true
@@ -97,7 +110,7 @@ if (this.formulier.wachtwoord!==this.formulier.wachtwoordBevestigen){
 this.validatieFout=true
 }
 this.formulier.telefoonnummer=this.formulier.telefoonnummer.replace('/','')
-const regExpTelefoonNummer= new RegExp(/^\d+$/ )
+const regExpTelefoonNummer= new RegExp(/^\d{8,12}/ )
 if(!regExpTelefoonNummer.test(this.formulier.telefoonnummer)){
     this.validatieObject.telefoonnummer='gelieve een geldig telefoonnummer te geven'
     this.validatieFout=true
@@ -113,20 +126,20 @@ if (!this.validatieFout){
 
     this.$store.dispatch('Klant/klantAanmaken', this.formulier)
     this.$router.push('/')
-}
-    }
-    
-    
-    
-    
-    
     
     }
     
     
     
     
-        }
+    
+    
+    }
+    
+    
+    
+    
+}}
     
     </script>
     
@@ -152,12 +165,35 @@ if (!this.validatieFout){
     
     
     }
+    .wrapper{
+
+display: flex;
+flex-direction:row;
+column-gap:8vw
+
+    }
     
-    #formulier{
+    .verplicht{
     
-  
+  display: flex;
+  flex-direction:column ;
+margin-left: 4vw;    
+}
+
+    .optioneel{
     
-    
-    
+    display: flex;
+    flex-direction:column ;
+      }  
+.validatie{
+
+color:rgb(223, 3, 3)
+
+
+ }   
+
+.lijstTitel{
+list-style: none;
+
     }
     </style>

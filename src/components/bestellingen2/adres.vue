@@ -19,7 +19,7 @@
  {{huisnummer}}</div>
   <div v-else>
 <label for="huisnummer">huisnummer</label>
- <input @input="storeHuisnummer"  v-model="huisummer2" />      
+ <input @input="storeHuisnummer"  v-model="huisnummer2" />      
 </div>
 </div>
 
@@ -40,9 +40,9 @@
 export default{
 data(){
 return{
-//gemeente2:'',
-//straat2:'',
-//huisnummer2:''
+gemeente2:'',
+straat2:'',
+huisnummer2:''
 
 
 
@@ -53,20 +53,20 @@ return{
 },
 computed:{
 gemeente(){
-    if (this.$store.state.Klant.klant)
-return this.$store.state.Klant.klant.gemeente 
+    if (this.$store.getters["Klant/klant"])
+return this.$store.getters["Klant/klant"].gemeente 
 else{
     return null
 } 
 },
 straat(){
-    if (this.$store.state.Klant.klant)
-  return  this.$store.state.Klant.klant.straat 
+    if (this.$store.getters["Klant/klant"])
+  return  this.$store.getters["Klant/klant"].straat 
   else{return null}
 },
 huisnummer(){
-    if (this.$store.state.Klant.klant)
-  return  this.$store.state.Klant.klant.huisnummer 
+    if (this.$store.getters["Klant/klant"])
+  return  this.$store.getters["Klant/klant"].huisnummer 
   else{return null}
    
 }
@@ -106,7 +106,11 @@ methods:{
 
 </script>
 <style scoped>
+*{
+font-size: 1.4rem;
+background: lightskyblue;
 
+}
 #adres{
 
 display:flex;
@@ -115,9 +119,10 @@ padding-top: 1rem;
 }
 
 input
-{max-width: 8vw;
+{max-width: 20vw;
 display:flex;
-column-gap:3vh
+column-gap:3vh;
+background-color: white;
 }
 
 

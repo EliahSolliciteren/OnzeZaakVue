@@ -1,6 +1,6 @@
 <template>
     
-<div  v-if="(this.$store.state.Klant.klant)">
+<div class="wrapper"  v-if="(this.$store.state.Klant.klant)">
    
 <div id="aangemeld">
 <div>Van harte welkom op onze site {{this.$store.getters["Klant/klant"].voornaam}}!</div>
@@ -16,9 +16,9 @@
     <br>
     <div id="wachtwoord">
     <label for="wachtwoord"> wachtwoord:</label> <br>
-    <input id="wachtwoord" v-model.trim="wachtwoord"/>
+    <input  type="password" id="wachtwoord" v-model.trim="wachtwoord"/>
 </div>
-<span v-if="error">Zijn de inloggegevens juist?</span>
+<span class="validatie" v-if="error">Zijn de inloggegevens juist?</span>
     <br/>
     <button id="aanmeldknop" @click='aanmelden' type="submit">aanmelden</button>
     
@@ -41,7 +41,7 @@ methods:{
 afmelden(){
 
     this.$store.dispatch('Klant/afmelden')
-
+this.wachtwoord=""
 
 }},
 computed:{
@@ -60,29 +60,34 @@ return this.$store.getters['Klant/aanmeldError']
     <style scoped>
 input{
 width: 70%;
+height:70%
 }
 *{
-font-size: 1.2rem;
+font-size: 1rem;
     margin-left: 2%;
     margin-top: 1%;
-    padding:0%
+    padding:0%;
+   
 }
 
 #aanmelden{
 margin-left: 0%;
 padding-left: 0% ;
-display: grid;
+min-height: max-content;
+display: flex;
+flex-direction: column;
 /*justify-content:center;*/
-align-items: center;
-
-
+gap: 0;
+justify-content: center;
+vertical-align: flex-start;
 
 }
  #aanmeldknop{
 
 width:70%;
-margin-bottom: 2vh;
-
+padding-top:0 ;
+margin-bottom: 1vh;
+margin-left: 0.5vw;
 
  }
 
@@ -95,7 +100,25 @@ flex-direction: column;
 
  }
 
+ .validatie{
 
+color:rgb(23, 4, 152);
+margin-bottom:0vh;
+padding: bottom;
+ }
+
+.wrapper{
+
+display: flex;
+flex-direction: row;
+vertical-align: middle;
+text-align:center;
+justify-content: center;
+margin-top:12%;
+margin-bottom: 12%;
+font-size: 1.4rem;
+
+}
 
 
 

@@ -1,18 +1,21 @@
 <template>
    
-    <div class="test">  
-    <div id="winkelkarGrid" class="lijn" >
-        <div >gerecht</div> <div>aantal</div> <div class="opsomming">eenheisprijs </div ><div class="lijnT">totaal</div>
-    </div> 
-        <span class="opsomming"  v-for="gerecht in bestelling">
-    <div id="gerecht" v-if="gerecht.aantal>0"></div> 
-        <div class="G">{{gerecht.naam}} </div>  
-        <div class="A" >{{gerecht.aantal}}</div>
-    <div class="P">{{gerecht.prijs}}</div>
-    <div class="T">{{gerecht.prijs*gerecht.aantal}}</div>
-        </span>
-    </div>  
+  
     
+    <ul id="lijst">
+       <li class="opsomming" >
+        <div >gerecht</div><div> aantal</div><div>eenheidsprijs</div>  <div>totaal</div>
+       </li>  
+    <li class="opsomming"  v-for="gerecht in bestelling">
+    
+        <div class="g" >{{gerecht.naam}} </div>  
+        <div  >{{gerecht.aantal}}</div>
+    <div >{{gerecht.prijs}}</div>
+    <div >{{gerecht.prijs*gerecht.aantal}}</div>
+         
+    </li>
+     
+    </ul>
 <div id="totaal">totaal te betalen: {{totaal}}</div>
 
 </template>
@@ -25,27 +28,8 @@ return{}
 
    },
    computed:{
-    totaal(){
-const bestelling=this.$store.state.Bestelling.bestelling
-let totaal=0
-if (bestelling.length>0){
-bestelling.forEach(gerecht=>{
-totaal=totaal+gerecht.prijs*gerecht.aantal
-//totaal=totaal +gerecht*prijs+gerecht*aantal
-
-this.$store.dispatch['Bestelling/totaal', totaal]
-
-})}
-else{
-  
-
-totaal=0 
- this.$store.dispatch['Bestelling/totaal', this.totaal]
-}
-return totaal
-
-
-    },
+   
+   
 
 
 
@@ -53,18 +37,14 @@ return totaal
 bestelling(){
 
     return this.$store.getters["Bestelling/bestelling"]
-}  ,},
+} } ,
 
-mounted(){
+props:['totaal']
 
-return{
-    totaal:this.$store.dispatch["Bestelling/totaal",this.totaal]
+
+
 }
-    
 
-
-},
-}
 
 
    
@@ -78,39 +58,38 @@ return{
 <style scoped>
 *{
 
-font-size: 1.4rem
+font-size: 1.4rem;
+background-color: lightskyblue;
 
 }
 
 .opsomming{
     
-    display:flex;
-flex-direction:row;
-justify-content: space-around;
-margin-left: 0;
-
-}
-.lijn{
-
-display: flex;
-justify-content: space-around;
-flex-direction: row;
+    display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  width:80%;
+  margin-left: 10%;
+ 
 }
 
- .G{
-
-display: inline-flex;
-margin-left: 0;
+.g{padding-left: -6px;}
 
 
- }
+ 
  #totaal{
 
-margin-left: 70vw;
+margin-left: 45vw;
 margin-top: 2vh;
 font-weight: bold;
 
  }
+ #lijst{
+padding:0
+
+ }
+
+
 
 
 </style>

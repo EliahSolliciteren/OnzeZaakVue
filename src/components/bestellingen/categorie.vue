@@ -15,9 +15,9 @@
 
 
 <div id="input">
-    <label for="datum">datum te leveren:</label>
+    <label  class="datum" for="datum">datum te leveren:</label>
     <br>
-<input id="datum" v-model="datum" type="datetime-local"/> <br/>
+<input class="datum" id="datum" v-model="datum" type="datetime-local"/> <br/>
 <button id="plaatsen" @click="plaatsen">Bestelling plaatsen</button>
 
 <br>
@@ -194,7 +194,12 @@ cursor:pointer;
 
 }
 
+.datum{
 
+width:70%;
+margin-left: 0.5vw;
+
+}
 
 
 </style>

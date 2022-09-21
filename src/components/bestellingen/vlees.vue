@@ -1,9 +1,9 @@
 <template>
 
 
-<div :class="classObject">
+<div>
   
-  <div>vlees</div>
+  <div class="categorie">vlees</div>
   <div id="grid">
   
 <ul class="menukaart">
@@ -105,7 +105,12 @@ console.log(gerecht)
 </script>
 
 <style scoped>
+.categorie{
 
+padding-left: 2vw;
+padding-top: 2vw;
+
+}
 .menukaart{
 
 
@@ -137,12 +142,12 @@ visibility: hidden;
 
 
 .item{
-min-width: 20vw;
-max-width: 20vw;
-min-height: 12vh;
-max-height: 12vh;
-  margin-left: 2vw;
-   margin-right:2vw ;
+min-width: 25vw;
+max-width: 25vw;
+min-height: 19vh;
+max-height: 19vh;
+  padding-left: 2vw;
+   padding-right:2vw ;
 border: solid black 0.5px;
 
 display:flex;

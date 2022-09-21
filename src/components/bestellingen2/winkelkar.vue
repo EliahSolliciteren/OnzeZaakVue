@@ -1,34 +1,37 @@
 <template>
 
-<overzicht/>
+<overzicht :totaal="totaal"></overzicht>
 
-<span v-if="Validatiefouten.gerechten">{{Validatiefouten.gerechten}}</span>
+<span class="validatie" v-if="Validatiefouten.gerechten">{{Validatiefouten.gerechten}}</span>
 <div class="marge">
 <adres/>
-<div v-if="Validatiefouten.adres">{{Validatiefouten.adres}}</div>
+<div class="validatie" v-if="Validatiefouten.adres">{{Validatiefouten.adres}}</div>
 
 
-<div v-if="datum2">bestelling wordt geleverd op: {{datum2}}</div>
-<input @input="this.datum2=true" v-else type="datetime-local"/>
-<span v-if="Validatiefouten.datum">{{Validatiefouten.datum}}</span>
+<div v-if="this.$store.getters['Bestelling/datum']">bestelling wordt geleverd op: {{datum2}}</div>
+<input  class="datum" @input="datumOpslaan" v-model="datum3" v-else type="datetime-local"/>
+<span class="validatie" v-if="Validatiefouten.datum">{{Validatiefouten.datum}}</span>
 <br>
-<button @click="bevestigen">Bevestig de bestelling</button>
+<button class="bevestigen" @click="bevestigen">Bevestig de bestelling</button>
 
-{{totaal}}
+<button class="corrigeren" @click="this.$router.push('/bestellen')">Toch nog iets corrigeren?</button>
+
 </div>
-
+{{now}}
 
 </template>
 
 <script>
     
 
+
+import store from '@/store/store'
 import adres from './adres.vue'
 import overzicht from './overzicht.vue'
     export default{
 data(){
 return{
-datum3:'',   
+datum3:false,   
 datum2:false,
 Validatiefouten:{datum:'',gerechten:'',adres:'' },
 validatiefout:false
@@ -37,43 +40,85 @@ validatiefout:false
 },
 computed:{
 
+
 datum2(){
-const datum2=this.$store.state.Bestelling.datum
+const datum2=this.$store.getters["Bestelling/datum"]
+
+
 let dag=datum2.substring(8,10)
 let maand=datum2.substring(5,7)
 let uur = datum2.substring(11,17)
 console.log('dag:' + dag)
 console.log('maand:' + maand)
-//this.dag2=dag
-//this.maand2=maand
-//this.uur2=uur
-if(uur&&maand&&uur){this.datum2=true
+
+console.log(datum2)
+if(!uur||!maand||!dag){
+    return false
+}
 
 return dag +'/' + maand +' rond '+ uur 
+},
+
+
+
+ totaal(){
+const bestelling=this.$store.getters["Bestelling/bestelling"]
+let totaal=0
+if (bestelling.length>0){
+bestelling.forEach(gerecht=>{
+totaal=totaal+gerecht.prijs*gerecht.aantal
+//totaal=totaal +gerecht*prijs+gerecht*aantal
+if(this.$store.getters["Klant/klant"]){totaal=(Math.round(0.9*totaal*100)/100)}
+this.$store.dispatch['Bestelling/totaal', (this.totaal)]
+
+})}
+else{
+  
+
+totaal=0 
+ this.$store.dispatch['Bestelling/totaal', this.totaal]
 }
-else return
+return totaal
+
+
+    },
 
 
 },
 
 
-},
 methods:{
+
+datumOpslaan(){
+this.$store.dispatch('Bestelling/tijd', this.datum3)
+console.log("datum: "+this.datum3)
+
+
+
+},    
 bevestigen() 
 {
    this.Validatiefouten={datum:'',gerechten:'',adres:'' }
    this.validatiefout=false
 
-if (!this.datum2){
+if (!store.getters["Bestelling/datum"]){
+   
 this.Validatiefouten.datum='Gelieve de datum na te kijken'
 this.validatiefout=true
 
+}else{
+if (-Date.now()+Date.parse(this.$store.getters["Bestelling/datum"])<360000){
+   
+   this.Validatiefouten.datum='Gelieve een uur voor de leverdatum te bestellen'
+   this.validatiefout=true
+   this.$store.dispatch('Bestelling/tijd','')
 }
-if (this.$store.getters['Bestelling/totaal']=0){
+}
+if (this.totaal==0){
     
     this.Validatiefouten.gerechten='Je hebt geen gerechten geselecteerd'
 this.validatiefout=true; console.log('gezocht:'+this.$store.getters["Bestelling/adres"].gemeente)
-}
+}else{store.dispatch('Bestelling/totaal',this.totaal)}
 
 //console.log(this.Validatiefouten) 
 
@@ -100,7 +145,7 @@ console.log(this.Validatiefouten)
 
 if (this.validatiefout==false){
 
-this.$store.dispatch('Bestelling/bevestigen', {datum:this.$store.state.Bestelling.datum, adres:{gemeente:this.gemeente,straat:this.straat,huisnummer:this.huisnummer}})
+this.$store.dispatch('Bestelling/bevestigen', {adres:{gemeente:this.gemeente,straat:this.straat,huisnummer:this.huisnummer}})
 this.$router.push('/smakelijk')
 }
 
@@ -129,9 +174,14 @@ adres, overzicht
 <style scoped>
 *{
 
-font-size:1.4rem
+font-size:1.4rem;
+background: lightskyblue
 
-
+}
+.validatie{
+color:red;
+margin-top: 1vh;
+margin-bottom: 2vh;
 }
 
 .marge{
@@ -142,7 +192,20 @@ margin-left: 3vw;
 
 }
 
+.datum{
 
+margin-top: 3vh;
+margin-bottom: 6vh;
+background-color: white;
+
+
+}
+
+.bevestigen{
+
+margin-right:2vw
+
+}
 
 
 

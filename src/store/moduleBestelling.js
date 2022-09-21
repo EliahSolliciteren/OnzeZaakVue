@@ -1,6 +1,8 @@
 //import createPersistedState from "vuex-persistedstate";
 
+
 import axios from "axios";
+
 
 const state={
 
@@ -57,19 +59,29 @@ commit('ANDERECATEGORIE', gerecht)
 
 },
 
+tijd({commit},datum){
+commit('TIJD',datum)
+
+
+},
+totaal({commit},totaal){
+    commit('TOTAAL',totaal)
+},
+
 gemeente({commit},gemeente){
     commit('GEMEENTE', gemeente)
+    console.log('gemeente:'+gemeente)
 
 },
 straat({commit},straat){
     commit('STRAAT', straat)
-
+console.log('straat:'+straat)
 
 },
 
 huisnummer({commit},huisnummer){
     commit('HUISNUMMER', huisnummer)
-console.log(huisnummer)
+console.log('huisnummer:'+huisnummer)
 
 },
 
@@ -82,12 +94,14 @@ commit('TOTAAL', tijdEnTotaal.totaal)
 
 
 },
-bevestigen({commit,getters,rootGetters}, adresEnDatum){
-    commit('TIJD', adresEnDatum.datum)
-  
+async bevestigen({commit,getters,rootGetters}, adres){
+    //commit('TIJD', adresEnDatum.datum)
+ await commit('GEMEENTE', adres.gemeente)
+ await commit('STRAAT', adres.straat)
+ await commit('HUISNUMMER', adres.huisnummer)
 const klant=rootGetters['Klant/klant']||''
-console.log('adres: '+getters.adres.straat)
-console.log(klant.straat)
+//console.log('adres: '+getters.adres.straat)
+//console.log(klant.straat)
 console.log(getters.bestelling)
     axios({
         url: 'http://localhost:3001/bestelling/create',
@@ -101,11 +115,11 @@ adres:{gemeente:getters.adres.gemeente||klant.gemeente, straat:getters.adres.str
 
 //adres: getters.adres//rootGetters['Klant/klant']
 }
-}).then(()=>{commit('GEMEENTE',''),commit('STRAAT',''), commit('HUISNUMMER',''), commit('HERBEGINNEN','')
+}).then(()=>commit('GEMEENTE',''),commit('STRAAT',''), commit('HUISNUMMER',''), commit('HERBEGINNEN',''), commit('TIJD',''), commit('TOTAAL',0))
+//defaulState
 
 
 
-})
 
 
 

@@ -9,6 +9,7 @@
 <div id="footer"></div>
 <div id="linkerbalk"> <router-view name="links"></router-view></div>
 <div id="rechterbalk"></div> 
+<div id="rechtsonder"></div>
 </div>
   
   </template> 
@@ -91,7 +92,7 @@ grid-template-columns: auto 1fr auto;
 grid-template-areas:
 "aanmelden navigatiebalk rechtsboven"
 "linkerbalk routerview rechterbalk"
-"linksonder footer rechtsonder";
+"linksonder footer .";
 height: 100vh;
 }
 
@@ -99,16 +100,17 @@ height: 100vh;
 
 grid-area: aanmelden;
 background-color: darkcyan;
-min-height: 20vh;
-max-height: 20vh;
+height: fit-content;
+
 }
 #routerview{
 
 grid-area: routerview;
-background-color: rgb(138, 247, 255);
+background: lightskyblue;
 
-min-height: 70vh;
-max-height: 70vh;
+
+min-height: 100%;
+max-height: 100%;
 overflow-y: scroll;
 }
 
@@ -116,13 +118,13 @@ overflow-y: scroll;
 
 grid-area: footer;
 background-color: rosybrown;
-min-height: 15vh;
-max-height: 15vh;
+min-height: 0vh;
+max-height: 0vh;
 /*align-content: center;*/
 ;
 }
 #navigatiebalk{
-
+position: relative;
 grid-area: navigatiebalk;
 background-color: lightcyan;
 justify-content: center;
@@ -155,4 +157,5 @@ grid-area:rechterbalk
 
 
 }
+
 </style>

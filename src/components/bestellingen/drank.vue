@@ -1,23 +1,20 @@
 <template>
 
 
-<div :class="classObject">
+<div>
   
-  <div>drank</div>
+  <div class="categorie">drank</div>
   <div id="grid">
   
 <ul class="menukaart">
  
 <li   v-for="(gerecht,index) in menukaart" :key="gerecht._id" :gerecht="gerecht" class="item" >
- <div class="product">{{gerecht.naam}} <br/>{{gerecht.prijs}} euro 
-<div v-if="gerecht.aantal>0"> Aantal: {{gerecht.aantal}}</div> 
-<div v-else class="onzichtbaar" > Aantal: {{gerecht.aantal}}</div> <br>
-
-</div> 
+ <div class="product">{{gerecht.naam}} <br>{{gerecht.prijs}} euro <br>
+<span :class="(gerecht.aantal>0)?'':'onzichtbaar'"> Aantal: {{gerecht.aantal}}</span> 
+</div>
 <div class="aantal">
 <button @click="keuze(index)" class="plus"> + </button>
-<button v-if="gerecht.aantal>0" @click="verwijderen(index)">-</button>
-<button v-else class="onzichtbaar" @click="verwijderen(index)">-</button>
+<button :class="(gerecht.aantal>0)?'':'onzichtbaar'" @click="verwijderen(index)">-</button>
 
 </div>
 </li>
@@ -50,10 +47,13 @@ return{
 },
 
 computed:{
-classObject(){
-  return {hidden:this.cat!=='alles'&&this.cat!=='drank'}
 
-}},
+
+},
+
+
+
+
  //ternary operator was ook mogelijk geweest, maar eventuaal nog
 //een klasse voor als je bij this.cat=='drank' anders wilt reageren 
 
@@ -105,6 +105,13 @@ console.log(gerecht)
 </script>
 
 <style scoped>
+.categorie{
+
+padding-left: 2vw;
+padding-top: 2vw;
+
+}
+
 
 .menukaart{
 
@@ -125,8 +132,8 @@ flex-wrap: wrap;
 
 .hidden{
 
-display:none
-
+/*display:none*/
+display: none;
 }
 
 .onzichtbaar{
@@ -137,11 +144,11 @@ visibility: hidden;
 
 
 .item{
-min-width: 20vw;
-max-width: 20vw;
-min-height: 12vh;
-max-height: 12vh;
-  margin-left: 2vw;
+min-width: 25vw;
+max-width: 25vw;
+min-height: 19vh;
+max-height: 19vh;
+  margin-left: 3vw;
    margin-right:2vw ;
 border: solid black 0.5px;
 
@@ -168,6 +175,13 @@ align-items: center;
 display:flex;
 flex-direction: column;
 justify-content: space-around;
+
+
+}
+
+#grid{
+
+margin-left: 1vw;
 
 
 }
