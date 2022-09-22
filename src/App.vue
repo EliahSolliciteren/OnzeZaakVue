@@ -124,7 +124,7 @@ max-height: 0vh;
 ;
 }
 #navigatiebalk{
-/*position: relative;*/
+
 grid-area: navigatiebalk;
 background-color: lightcyan;
 justify-content: center;

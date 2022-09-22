@@ -30,7 +30,7 @@ font-size:1.4rem;
 display:flex ;
 flex-direction: column;
 justify-content: center;
-align-self: center;
+align-items: center;
 
 }
 #titel{
