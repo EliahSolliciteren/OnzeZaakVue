@@ -148,11 +148,13 @@ TOEVOEGENAANBESTELLING(state,payload){
     const indexBestelling=state.bestelling.findIndex(e=>e.naam==payload.naam)
 if (indexBestelling ==-1){
     payload.aantal=1
-state.bestelling.push(payload)}
+//state.bestelling.push(payload)}
+state.bestelling.splice(state.bestelling.length,0,payload)}
 else{
-
+  
+  
 state.bestelling[indexBestelling].aantal++
-console.log(indexBestelling)
+//console.log(indexBestelling)
 
 //const indexMenukaart=state.menukaart.findIndex(e=>e.naam==payload.naam)
 //state.menukaart[indexMenukaart].aantal++

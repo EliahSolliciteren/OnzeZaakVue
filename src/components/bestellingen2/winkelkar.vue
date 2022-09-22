@@ -8,7 +8,7 @@
 <div class="validatie" v-if="Validatiefouten.adres">{{Validatiefouten.adres}}</div>
 
 
-<div v-if="this.$store.getters['Bestelling/datum']">bestelling wordt geleverd op: {{datum2}}</div>
+<div v-if="datum2">bestelling wordt geleverd op: {{datum2}}</div>
 <input  class="datum" @input="datumOpslaan" v-model="datum3" v-else type="datetime-local"/>
 <span class="validatie" v-if="Validatiefouten.datum">{{Validatiefouten.datum}}</span>
 <br>
@@ -43,7 +43,7 @@ computed:{
 
 datum2(){
 const datum2=this.$store.getters["Bestelling/datum"]
-
+if(!this.datum3){
 
 let dag=datum2.substring(8,10)
 let maand=datum2.substring(5,7)
@@ -57,7 +57,7 @@ if(!uur||!maand||!dag){
 }
 
 return dag +'/' + maand +' rond '+ uur 
-},
+}},
 
 
 
@@ -91,7 +91,7 @@ methods:{
 
 datumOpslaan(){
 this.$store.dispatch('Bestelling/tijd', this.datum3)
-console.log("datum: "+this.datum3)
+
 
 
 
@@ -203,8 +203,12 @@ background-color: white;
 
 .bevestigen{
 
-margin-right:2vw
+margin-right:2vw;
+background-color: white;
+}
+.corrigeren{
 
+    background-color: white;
 }
 
 

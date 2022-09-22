@@ -37,8 +37,7 @@ data(){
     align-items: center;
     flex-direction: column;
     vertical-align: center;
-    text-align: middle;
-    
+    justify-content: center;
     }
     
     

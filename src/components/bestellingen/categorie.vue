@@ -164,6 +164,7 @@ background-color: green ;
 border: none;
 width:100%;
 text-align: justify;
+margin-left: 0;
 }
 
 
@@ -186,6 +187,7 @@ background-color: green ;
 border: none;
 width:100%;
 text-align: justify;
+margin-left: 0;
 }
 #herbeginnen:hover{
 

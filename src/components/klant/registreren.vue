@@ -30,7 +30,7 @@
     <br>
     
     <label for="wachtwoordBevestigen">Herhaal het wachtwoord:</label>
-    <input v-model="formulier.wachtwoordBevestigen" type="password" />
+    <input @blur="wachtwoordBevestigen()" v-model="formulier.wachtwoordBevestigen" type="password" />
     <span class="validatie" v-if="validatieObject.wachtwoordBevestigen"> {{validatieObject.wachtwoordBevestigen}}</span>
 
     <br>
@@ -81,8 +81,16 @@ validatieFout:false
     validatieObject:{voornaam:'', familienaam:'',email:'',wachtwoord:'',wachtwoordBevestigen:'', telefoonnummer:''}
         }},
     methods:{
+wachtwoordBevestigen()
+
+{ this.validatieObject.wachtwoordBevestigen=""
+ if (this.formulier.wachtwoord!==this.formulier.wachtwoordBevestigen){
+    this.validatieObject.wachtwoordBevestigen='De wachtwoorden komen niet overeen'
+this.validatieFout=true}
+},
+
     nieuweKlant(e){
-        console.log(this.formulier)
+        
     e.preventDefault()
     console.log(e)
     this.validatieObject={voornaam:'', familienaam:'',email:'',wachtwoord:'',wachtwoordBevestigen:'', telefoonnummer:''}
@@ -105,13 +113,14 @@ const eenHoofdletterRegexp= new RegExp(/[A-Z]+/)
 if (this.formulier.wachtwoord.length<5 ||(!eenGetalRegexp.test(this.formulier.wachtwoord)&&!speciaalTekenRegexp.test(this.formulier.wachtwoord))||!eenHoofdletterRegexp.test(this.formulier.wachtwoord))
 {this.validatieObject.wachtwoord='ww fout'
 this.validatieFout=true}
-if (this.formulier.wachtwoord!==this.formulier.wachtwoordBevestigen){
+/*if (this.formulier.wachtwoord!==this.formulier.wachtwoordBevestigen){
     this.validatieObject.wachtwoordBevestigen='De wachtwoorden komen niet overeen'
 this.validatieFout=true
-}
+}*/
+this.wachtwoordBevestigen()
 this.formulier.telefoonnummer=this.formulier.telefoonnummer.replace('/','')
 const regExpTelefoonNummer= new RegExp(/^\d{8,12}/ )
-if(!regExpTelefoonNummer.test(this.formulier.telefoonnummer)){
+if(!regExpTelefoonNummer.test(this.formulier.telefoonnummer)&&this.formulier.telefoonnummer){
     this.validatieObject.telefoonnummer='gelieve een geldig telefoonnummer te geven'
     this.validatieFout=true
 
@@ -195,5 +204,9 @@ color:rgb(223, 3, 3)
 .lijstTitel{
 list-style: none;
 
+    }
+    ul{
+
+        padding-left:0
     }
     </style>

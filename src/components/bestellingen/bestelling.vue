@@ -20,7 +20,7 @@
 
 
 
-
+{{bestelling}}
 </template>
 
 <script>
@@ -167,7 +167,7 @@ classObjectNagerecht(){
 
 }
 },
-},
+
 
 
 
@@ -210,19 +210,19 @@ verwijderen(index){
 console.log(gerecht)
   this.$store.dispatch('Bestelling/verwijderen', gerecht)
 
-},
-
-
-
-
-
-
 }
 
 
 
 
-}
+
+
+}}}
+
+
+
+
+
   
  
 
@@ -235,6 +235,7 @@ width: 100%;
   font-size:1.4rem;
 color: white;
 background-color: grey;
+/*font-family...*/
 }
 .menukaart{
 
@@ -301,8 +302,9 @@ grid-area:nagerecht;
   background-color: grey;
 }
 
-
-
+@media only screen and (max-width: 900px) {
+*{font-size:1rem} /*overgaan op een lijst knoppen er onder ipv ernaast*/
+} /* aanmelden 1 enkele button veranderen. Bij klikken een aparte component. */
 
 </style>
 

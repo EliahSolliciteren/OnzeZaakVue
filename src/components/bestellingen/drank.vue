@@ -68,7 +68,7 @@ keuze(index)
 let gerecht=this.menukaart[index]
 
 this.$store.dispatch('Bestelling/toevoegenAanBestelling', gerecht)
-
+this.$forceUpdate()
 
 },
 
@@ -89,8 +89,10 @@ console.log(gerecht)
 
 
 
+},
+watch:{
+  gerecht(oud,nieuw){console.log('!!!')}
 }
-
 
 
 }
