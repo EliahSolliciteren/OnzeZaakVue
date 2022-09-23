@@ -71,12 +71,13 @@ props:true
 
 
 
-}/*,{
-path:'*',
+},{
+path:'/:pathMatch(.*)*',
+params: {} ,
 name:'HTTP404',
 components:{ default:welkom,links:bronnen},
 props:true
-}*/
+}
 
 
 
