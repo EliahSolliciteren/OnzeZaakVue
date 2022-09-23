@@ -4,7 +4,7 @@
 <div id="aanmelden"> <aanmelden/></div>
 <div id="rechtsboven"> </div>
 <div id="routerview">
-<keep-alive><router-view ></router-view></keep-alive> </div>
+<router-view></router-view> </div>
 <div id="navigatiebalk"><component :is="banner"></component></div>
 <div id="footer"></div>
 <div id="linkerbalk"> <router-view name="links"></router-view></div>
@@ -120,7 +120,7 @@ grid-area: footer;
 background-color: rosybrown;
 min-height: 0vh;
 max-height: 0vh;
-/*align-content: center;*/
+
 ;
 }
 #navigatiebalk{

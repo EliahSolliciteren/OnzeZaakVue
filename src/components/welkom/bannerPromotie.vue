@@ -1,7 +1,7 @@
 <template>
 <div id="centreren">
 
-   <div>iedere donderdag drank aan halve prijs bij de aankoop van een hoofdschotel</div>
+   <div>Iedere donderdag drank aan halve prijs bij de aankoop van een hoofdschotel</div>
 
     
 

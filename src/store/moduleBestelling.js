@@ -94,14 +94,13 @@ commit('TOTAAL', tijdEnTotaal.totaal)
 
 
 },
-async bevestigen({commit,getters,rootGetters}, adres){
-    //commit('TIJD', adresEnDatum.datum)
- await commit('GEMEENTE', adres.gemeente)
+/*async */bevestigen({commit,getters,rootGetters}/*, adres*/){
+   console.log(adres)
+ /*await commit('GEMEENTE', adres.gemeente)
  await commit('STRAAT', adres.straat)
- await commit('HUISNUMMER', adres.huisnummer)
+ await commit('HUISNUMMER', adres.huisnummer)*/
 const klant=rootGetters['Klant/klant']||''
-//console.log('adres: '+getters.adres.straat)
-//console.log(klant.straat)
+
 console.log(getters.bestelling)
     axios({
         url: 'http://localhost:3001/bestelling/create',
@@ -113,7 +112,7 @@ totaal: getters.totaal,
 klant: klant,
 adres:{gemeente:getters.adres.gemeente||klant.gemeente, straat:getters.adres.straat||klant.straat, huisnummer:getters.adres.huisnummer||klant.huisnummer}
 
-//adres: getters.adres//rootGetters['Klant/klant']
+
 }
 }).then(()=>commit('GEMEENTE',''),commit('STRAAT',''), commit('HUISNUMMER',''), commit('HERBEGINNEN',''), commit('TIJD',''), commit('TOTAAL',0))
 //defaulState

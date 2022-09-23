@@ -71,7 +71,13 @@ props:true
 
 
 
-}
+}/*,{
+path:'*',
+name:'HTTP404',
+components:{ default:welkom,links:bronnen},
+props:true
+}*/
+
 
 
 ]

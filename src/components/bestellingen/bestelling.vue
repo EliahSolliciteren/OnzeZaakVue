@@ -20,7 +20,7 @@
 
 
 
-{{bestelling}}
+
 </template>
 
 <script>
